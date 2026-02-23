@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Details - Buddy Bike</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="js/supabaseClient.js"></script>
+
+    <style>
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            background: #0a0a0a;
+            border-radius: 12px;
+            border: 1px solid #333;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .slider-img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover; 
+            display: block;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10, 10, 10, 0.8);
+            color: white;
+            border: 2px solid #555;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: #fc0e0e;
+            border-color: #fc0e0e;
+        }
+
+        .prev-btn { left: 15px; }
+        .next-btn { right: 15px; }
+
+        @media (max-width: 768px) {
+            .slider-img { height: 300px; }
+            .slider-btn { width: 40px; height: 40px; font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <h2>⚡ Buddy Bike</h2>
+        <div class="nav-links" style="display: flex; gap: 15px;">
+            <a href="bikes.html"><button class="neon-btn">Back to Bikes</button></a>
+        </div>
+    </nav>
+
+    <section class="details-section" style="max-width: 1000px; margin: 40px auto; padding: 20px; text-align: center;">
+        
+        <div id="loading-message" style="color: white; font-size: 18px;">Loading bike details...</div>
+
+        <div id="bike-content" style="display: none;">
+            
+            <h1 id="detail-name" style="margin-bottom: 30px; font-weight: bold; color: white; letter-spacing: 1px;">Bike Name</h1>
+
+            <div class="slider-container">
+                <button id="prevBtn" class="slider-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
+                
+                <img id="main-image" class="slider-img" src="" alt="Bike Image">
+                
+                <button id="nextBtn" class="slider-btn next-btn" onclick="changeImage(1)">&#10095;</button>
+            </div>
+
+            <div class="bike-card" style="padding: 30px; text-align: left; background: #0a0a0a; max-width: 800px; margin: 0 auto;">
+                <h3 style="color: #fc0e0e;">Specifications</h3>
+                <hr style="border-color: #333; margin: 15px 0;">
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 16px;">
+                    <p><strong>Price:</strong> <span id="detail-price" style="color: #ccc;"></span></p>
+                    <p><strong>Brand:</strong> <span id="detail-brand" style="color: #ccc;"></span></p>
+                    <p><strong>Year:</strong> <span id="detail-year" style="color: #ccc;"></span></p>
+                    <p><strong>Kilometers Driven:</strong> <span id="detail-km" style="color: #ccc;"></span></p>
+                    <p><strong>Status:</strong> <span id="detail-status" style="color: #ccc;"></span></p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        let bikeImages = [];
+        let currentImageIndex = 0;
+
+        async function loadBikeDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bikeId = urlParams.get('id');
+
+            if (!bikeId) {
+                document.getElementById('loading-message').innerText = "Bike not found.";
+                return;
+            }
+
+            const { data, error } = await supabaseClient
+                .from('bikes')
+                .select('*')
+                .eq('id', bikeId)
+                .single();
+
+            if (error) {
+                console.error(error);
+                document.getElementById('loading-message').innerText = "Failed to load bike details.";
+                return;
+            }
+
+            document.getElementById('loading-message').style.display = "none";
+            document.getElementById('bike-content').style.display = "block";
+
+            // Data mapping to HTML
+            document.getElementById('detail-name').innerText = data.name;
+            document.getElementById('detail-price').innerText = "₹ " + Number(data.price).toLocaleString('en-IN');
+            document.getElementById('detail-brand').innerText = data.brand;
+            document.getElementById('detail-year').innerText = data.year;
+            document.getElementById('detail-km').innerText = data.kmDriven + " km";
+            document.getElementById('detail-status').innerText = data.status || "Available";
+
+            // Setup Image Slider
+            if (data.imageUrls && data.imageUrls.length > 0) {
+                bikeImages = data.imageUrls;
+                document.getElementById('main-image').src = bikeImages[0];
+
+                if (bikeImages.length === 1) {
+                    document.getElementById('prevBtn').style.display = "none";
+                    document.getElementById('nextBtn').style.display = "none";
+                }
+            } else {
+                document.getElementById('main-image').src = "assets/placeholder.jpg";
+                document.getElementById('prevBtn').style.display = "none";
+                document.getElementById('nextBtn').style.display = "none";
+            }
+        }
+
+        window.changeImage = function(step) {
+            if (bikeImages.length === 0) return;
+
+            currentImageIndex += step;
+
+            if (currentImageIndex >= bikeImages.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = bikeImages.length - 1;
+            }
+
+            document.getElementById('main-image').src = bikeImages[currentImageIndex];
+        }
+
+        loadBikeDetails();
+    </script>
+</body>
+</html>

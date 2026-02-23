@@ -1,0 +1,905 @@
+/* ===== GLOBAL ===== */
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+background: #050816;
+color: white;
+font-family: Arial, sans-serif;
+overflow-x: hidden;
+}
+
+/* ===== NAVBAR ===== */
+
+.navbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 20px 40px;
+background: #020617;
+flex-wrap: wrap;
+gap: 10px;
+}
+
+.neon-btn {
+border: 2px solid #fc0e0e;
+background: transparent;
+color: #fc0717;
+padding: 10px 20px;
+cursor: pointer;
+transition: 0.3s;
+border-radius: 5px;
+}
+
+.neon-btn:hover {
+background: #ed0b0b;
+color: black;
+}
+
+/* ===== HERO SECTION ===== */
+
+.hero {
+    min-height: 35vh; /* Reduced from 80vh to bring content up */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.glow {
+font-size: 60px;
+color: #e71717ce;
+text-shadow: 0 0 20px #eb0e12eb;
+margin-bottom: 20px;
+}
+
+/* ===== CARD CONTAINER ===== */
+
+.card-container {
+display: flex;
+gap: 30px;
+justify-content: center;
+flex-wrap: wrap;
+margin-top: 40px;
+padding: 0 20px;
+}
+
+/* ===== FLIP CARD ===== */
+
+.flip-card {
+width: 280px;
+height: 350px;
+perspective: 1000px;
+position: relative;
+}
+
+.flip-inner {
+width: 100%;
+height: 100%;
+position: relative;
+transition: transform 0.8s;
+transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-inner {
+transform: rotateY(180deg);
+}
+
+/* Touch Device Flip Support */
+.flip-card:active .flip-inner {
+transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+position: absolute;
+width: 100%;
+height: 100%;
+backface-visibility: hidden;
+border-radius: 15px;
+overflow: hidden;
+}
+
+.flip-back {
+transform: rotateY(180deg);
+}
+
+/* ===== BIKE CARD ===== */
+
+.bike-card {
+background: #111;
+border-radius: 15px;
+overflow: hidden;
+transition: 0.4s;
+box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+height: 100%;
+display: flex;
+flex-direction: column;
+position: relative;
+}
+
+.bike-card:hover {
+transform: translateY(-10px);
+box-shadow: 0 0 25px cyan;
+}
+
+.bike-image {
+width: 100%;
+height: 220px;
+object-fit: cover;
+}
+
+/* ===== SOLD BADGE ===== */
+
+.sold-badge {
+position: absolute;
+top: 10px;
+left: 10px;
+background: red;
+color: white;
+padding: 5px 12px;
+font-weight: bold;
+border-radius: 6px;
+z-index: 2;
+font-size: 14px;
+}
+
+/* ===== TABLET RESPONSIVE ===== */
+
+@media (max-width: 992px) {
+
+.glow {
+font-size: 45px;
+}
+
+.flip-card {
+width: 240px;
+height: 320px;
+}
+
+.bike-image {
+height: 200px;
+}
+
+.navbar {
+padding: 15px 25px;
+}
+
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+
+/* Navbar Stack */
+.navbar {
+flex-direction: column;
+align-items: flex-start;
+}
+
+/* Hero Text */
+.glow {
+font-size: 32px;
+}
+
+/* Cards */
+.card-container {
+gap: 20px;
+}
+
+/* Flip Cards Full Width */
+.flip-card {
+width: 90%;
+max-width: 320px;
+height: 330px;
+}
+
+/* Bike Images */
+.bike-image {
+height: 180px;
+}
+
+/* Buttons */
+.neon-btn {
+padding: 8px 16px;
+font-size: 14px;
+}
+
+}
+
+/* ===== SMALL MOBILE ===== */
+
+@media (max-width: 480px) {
+
+.glow {
+font-size: 26px;
+}
+
+.hero {
+min-height: 70vh;
+}
+
+.flip-card {
+height: 300px;
+}
+
+.bike-image {
+height: 160px;
+}
+
+.sold-badge {
+font-size: 12px;
+padding: 4px 8px;
+}
+
+}
+
+/* ===== ULTRA SMALL DEVICES ===== */
+
+@media (max-width: 350px) {
+
+.glow {
+font-size: 22px;
+}
+
+.flip-card {
+height: 270px;
+}
+
+}
+/* ===== NEW LAYOUT SECTIONS ===== */
+.brands-section, .featured-section {
+    text-align: center;
+    padding: 20px 20px 40px 20px; /* Reduced top padding to close the gap */
+}
+
+.brands-section h3, .featured-section h3 {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: white;
+}
+
+/* ===== BRANDS GRID ===== */
+.brands-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+}
+
+.brand-card {
+    background: white;
+    color: #333;
+    border-radius: 8px;
+    width: 130px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.brand-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.brand-card span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.brand-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* ===== SOLID BUTTON (For "View All Bikes") ===== */
+.solid-btn {
+    background: #c60505; /* Matches your screenshot's pink/red button */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.solid-btn:hover {
+    background: #f53131;
+}
+
+/* ===== JS BIKE CARD INTERNALS ===== */
+.bike-details {
+    padding: 15px;
+    text-align: left;
+}
+
+.bike-details h4 {
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.bike-meta {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.bike-price {
+    font-size: 20px;
+}
+
+.back-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+/* ===== EMI CALCULATOR SECTION ===== */
+.calculator-section {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.calc-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    background: #111;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(252, 14, 14, 0.15); /* Subtle red glow */
+    text-align: left;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ddd;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    background: #020617;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #fc0e0e;
+    box-shadow: 0 0 8px rgba(252, 14, 14, 0.5);
+}
+
+.result-box {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.breakdown {
+    margin-top: 15px;
+    text-align: left;
+    background: #020617;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #222;
+}
+
+.breakdown p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.breakdown span {
+    font-weight: bold;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* ===== CONTACT SECTION ===== */
+.contact-section {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 900px;
+    background: #111;
+    border-radius: 15px;
+    padding: 0; /* Removing padding so map hits the edges */
+    overflow: hidden;
+    text-align: left;
+    box-shadow: 0 0 15px rgba(252, 14, 14, 0.15);
+}
+
+.contact-info {
+    flex: 1;
+    min-width: 300px;
+    padding: 40px;
+}
+
+.contact-info h3 {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #fc0e0e;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.contact-info p {
+    color: #ddd;
+    font-size: 16px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.phone-link {
+    color: #fc0e0e;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.phone-link:hover {
+    color: #ff4d4d;
+    text-shadow: 0 0 8px rgba(252, 14, 14, 0.6);
+}
+
+.contact-map {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+}
+
+/* Fix iframe padding issue */
+.contact-map iframe {
+    display: block;
+}
+
+/* ===== BIKES GALLERY SECTION ===== */
+
+/* Custom Dark Inputs for Bootstrap */
+/* ===== PURE CSS BIKES PAGE (NO BOOTSTRAP) ===== */
+
+.bikes-page {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+/* Responsive Filters Grid */
+.filters-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.custom-input {
+    background-color: #0a0a0a;
+    color: white;
+    border: 1px solid #333;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 15px;
+    width: 100%;
+    outline: none;
+    transition: 0.3s;
+}
+
+.custom-input:focus {
+    border-color: #fc0e0e;
+    box-shadow: 0 0 10px rgba(252, 14, 14, 0.4);
+}
+
+/* Responsive Bike Gallery Grid */
+.gallery-grid {
+    display: grid;
+    /* This automatically creates as many columns as will fit, sizing them between 260px and 1 fraction of the space */
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
+    text-align: left;
+}
+
+/* Premium Gallery Card */
+.gallery-card {
+    background: #0a0a0a;
+    border-radius: 12px;
+    border: 1px solid #222;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: 0.4s;
+}
+
+.gallery-card:hover {
+    transform: translateY(-8px);
+    border-color: #fc0e0e;
+    box-shadow: 0 10px 25px rgba(252, 14, 14, 0.2);
+}
+
+.gallery-img-container {
+    width: 100%;
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+    background: #111;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-card:hover .gallery-img {
+    transform: scale(1.1);
+}
+.gallery-card:hover {
+    transform: translateY(-8px);
+    border-color: #00e5ff; /* Cyan neon border */
+    box-shadow: 0 10px 25px rgba(0, 229, 255, 0.2); /* Cyan neon glow */
+}
+
+.gallery-details {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.gallery-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gallery-price {
+    font-size: 22px;
+    color: #fc0e0e;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.gallery-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.meta-tag {
+    background: #1a1a1a;
+    color: #ccc;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid #333;
+}
+
+.gallery-card .sold-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #fc0e0e;
+    color: white;
+    padding: 5px 12px;
+    font-weight: bold;
+    border-radius: 6px;
+    z-index: 3;
+    font-size: 13px;
+}
+
+/* Utility Class for JS injection */
+.d-none {
+    display: none !important;
+}
+
+/* Pagination Section */
+.pagination-container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#pageNumber {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Mobile Responsiveness for Filters */
+@media (max-width: 480px) {
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Stacks the logo and buttons neatly on mobile */
+    .navbar {
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .nav-links {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px !important;
+    }
+
+    /* Shrinks the buttons slightly so they fit better on small screens */
+    .nav-links .neon-btn {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+}
+
+/* ===== HORIZONTAL CAROUSEL ===== */
+.carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px; /* Space for the arrows */
+}
+
+.carousel-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 5px;
+    
+    /* Hide scrollbars for a cleaner look */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.carousel-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+/* Individual Card in the row */
+.carousel-card {
+    min-width: 280px; /* Forces cards to stay wide */
+    max-width: 280px;
+    background: #0a0a0a;
+    border-radius: 12px;
+    border: 1px solid #222;
+    flex-shrink: 0; /* Prevents cards from squishing */
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.carousel-card:hover {
+    transform: translateY(-5px);
+    border-color: #00e5ff; /* Cyan neon border */
+    box-shadow: 0 5px 15px rgba(0, 229, 255, 0.2); /* Cyan neon glow */
+}
+
+/* Left & Right Navigation Arrows */
+.carousel-btn {
+    background: rgba(10, 10, 10, 0.8);
+    color: white;
+    border: 2px solid #333;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.carousel-btn:hover {
+    background: #fc0e0e;
+    border-color: #fc0e0e;
+}
+
+.left-btn { left: 0; }
+.right-btn { right: 0; }
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .carousel-wrapper { padding: 0 20px; }
+    .left-btn { left: -5px; }
+    .right-btn { right: -5px; }
+    .carousel-card { min-width: 240px; max-width: 240px; }
+}
+
+/* ===== REDUCE MOBILE GAP ===== */
+@media (max-width: 768px) {
+    /* Shrinks the space around "Premium Used Bikes Marketplace" */
+    .hero {
+        min-height: 20vh !important; 
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Pulls "Featured bikes" up closer to the text above it */
+    .featured-section {
+        padding-top: 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        min-height: 15vh !important;
+    }
+}
+/* ===== ADMIN MANAGE BIKES TABLE ===== */
+
+.admin-section {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.table-container {
+    background: #0a0a0a;
+    border-radius: 12px;
+    border: 1px solid #222;
+    overflow-x: auto; /* Allows scrolling on small mobile screens */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    color: white;
+}
+
+.admin-table th, .admin-table td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.admin-table th {
+    background: #111;
+    font-weight: bold;
+    color: #888;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+/* Row Hover Effect */
+.admin-table tbody tr {
+    transition: background 0.3s ease;
+}
+
+.admin-table tbody tr:hover {
+    background: #151515;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.status-available {
+    background: rgba(0, 255, 100, 0.1);
+    color: #00e676;
+    border: 1px solid #00e676;
+}
+
+.status-sold {
+    background: rgba(252, 14, 14, 0.1);
+    color: #fc0e0e;
+    border: 1px solid #fc0e0e;
+}
+
+/* Action Buttons */
+.action-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 8px;
+    outline: none;
+}
+
+.edit-btn {
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+.edit-btn:hover {
+    background: #444;
+    border-color: #fff;
+}
+
+.delete-btn {
+    background: rgba(252, 14, 14, 0.1);
+    color: #fc0e0e;
+    border: 1px solid #fc0e0e;
+}
+
+.delete-btn:hover {
+    background: #fc0e0e;
+    color: black;
+}

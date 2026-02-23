@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Bikes - Admin</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="js/supabaseClient.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h2>⚡ Buddy Bike Admin</h2>
+        <div class="nav-links" style="display: flex; gap: 15px;">
+            <a href="admin-dashboard.html"><button class="neon-btn">Dashboard</button></a>
+            <a href="add-bike.html"><button class="neon-btn">Add Bike</button></a>
+            <a href="index.html"><button class="neon-btn">View Site</button></a>
+        </div>
+    </nav>
+
+    <section class="admin-section">
+        <h2 class="glow page-title" style="margin-bottom: 30px;">Manage Bikes</h2>
+        
+        <div class="table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Vehicle No.</th>
+                        <th>Bike Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 30px; color: #aaa;">Loading bikes from database...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+   <script>
+        async function load() {
+            let { data, error } = await supabaseClient
+                .from("bikes")
+                .select("*")
+                .order("createdAt", { ascending: false });
+
+            let tbody = document.getElementById("table-body");
+
+            if (error) {
+                console.error(error);
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #fc0e0e;">Failed to load bikes: ${error.message}</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = ""; 
+
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #aaa;">No bikes found.</td></tr>`;
+                return;
+            }
+
+            data.forEach(b => {
+                let statusClass = b.status === "Sold" ? "status-sold" : "status-available";
+                let displayStatus = b.status || "Available";
+
+                tbody.innerHTML += `
+                <tr>
+                    <td style="color: #fc0e0e; font-family: monospace;">${b.vehicleNumber || '-'}</td>
+                    <td style="font-weight: bold; font-size: 16px;">${b.name}</td>
+                    <td><span class="status-badge ${statusClass}">${displayStatus}</span></td>
+                    <td>
+                        <a href="edit-bike.html?id=${b.id}" class="action-btn edit-btn">Edit</a>
+                        <button onclick="window.del('${b.id}')" class="action-btn delete-btn">Delete</button>
+                    </td>
+                </tr>`;
+            });
+        }
+
+        window.del = async function(id) {
+            if (confirm("Are you sure you want to delete this bike? This action cannot be undone.")) {
+                try {
+                    const { error } = await supabaseClient
+                        .from("bikes")
+                        .delete()
+                        .eq("id", id);
+                    
+                    if (error) {
+                        console.error("Delete error:", error);
+                        alert("Failed to delete: " + error.message);
+                    } else {
+                        location.reload(); 
+                    }
+                } catch (err) {
+                    console.error("System error:", err);
+                    alert("An unexpected error occurred.");
+                }
+            }
+        }
+
+        load();
+    </script>
+
+</body>
+</html>
