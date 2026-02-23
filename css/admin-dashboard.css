@@ -1,0 +1,82 @@
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #050816;
+color: white;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+
+.dashboard {
+text-align: center;
+width: 90%;
+max-width: 800px;
+}
+
+h1 {
+margin-bottom: 40px;
+color: #ff0000;
+text-shadow: 0 0 15px #ff0004;
+}
+
+.card-container {
+display: flex;
+gap: 30px;
+justify-content: center;
+flex-wrap: wrap;
+}
+
+.card {
+background: #111;
+padding: 30px;
+border-radius: 15px;
+width: 220px;
+text-decoration: none;
+color: white;
+transition: 0.3s;
+box-shadow: 0 0 10px rgba(0,255,255,0.2);
+}
+
+.card:hover {
+transform: translateY(-10px);
+box-shadow: 0 0 25px rgb(255, 0, 0);
+}
+
+.card h2 {
+margin-bottom: 10px;
+color: #ff0000;
+}
+
+.logout-btn {
+margin-top: 40px;
+padding: 12px 30px;
+border: none;
+background: #ff3b3b;
+color: white;
+font-size: 16px;
+border-radius: 8px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+.logout-btn:hover {
+background: #ff0000;
+transform: scale(1.05);
+}
+
+
+/* 📱 Mobile Responsive */
+@media (max-width: 600px) {
+
+.card {
+width: 100%;
+}
+
+h1 {
+font-size: 28px;
+}
+
+}
+

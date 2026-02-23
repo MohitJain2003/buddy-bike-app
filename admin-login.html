@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Login</title>
+
+<link rel="stylesheet" href="css/auth.css">
+
+<!-- Supabase CDN -->
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+<h2>Admin Login</h2>
+
+<input type="email" id="email" placeholder="Enter Email" required>
+<input type="password" id="password" placeholder="Enter Password" required>
+
+<button id="loginBtn">Login</button>
+
+</div>
+
+<!-- Supabase Setup -->
+<script src="js/supabaseClient.js"></script>
+
+<!-- Auth Logic -->
+<script src="js/auth.js"></script>
+
+<!-- Attach Button Event -->
+<script>
+document.getElementById("loginBtn").addEventListener("click", login);
+</script>
+
+</body>
+</html>

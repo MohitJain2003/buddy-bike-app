@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buddy Bike</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h2>⚡ Buddy Bike</h2>
+        <div class="nav-links">
+            <a href="bikes.html"><button class="neon-btn">Explore All Bikes</button></a>
+            <a href="emicalculator.html"><button class="neon-btn">EMI Calculator</button></a>
+            <a href="contact.html"><button class="neon-btn">Contact</button></a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1 class="glow">Ride The Future</h1>
+        <p>Premium Used Bikes Marketplace</p>
+    </section>
+
+    <section class="featured-section">
+        <h3>Featured bikes</h3>
+        
+        <div class="carousel-wrapper">
+            <button class="carousel-btn left-btn" onclick="scrollCarousel(-1)">&#10094;</button>
+            
+            <div class="carousel-container" id="bikes-container">
+                <p style="text-align: center; width: 100%;">Loading bikes from database...</p>
+            </div>
+            
+            <button class="carousel-btn right-btn" onclick="scrollCarousel(1)">&#10095;</button>
+        </div>
+
+        <button class="solid-btn" style="margin-top: 30px;" onclick="window.location.href='bikes.html'">View all bikes</button>
+    </section>
+
+    <section class="brands-section">
+        <h3>Top brands</h3>
+        <div class="brands-grid">
+            <div class="brand-card"><img src="assets/hero.png" alt="Hero"><span>Hero</span></div>
+            <div class="brand-card"><img src="assets/honda.png" alt="Honda"><span>Honda</span></div>
+            <div class="brand-card"><img src="assets/bajaj.png" alt="Bajaj"><span>Bajaj</span></div>
+            <div class="brand-card"><img src="assets/tvs.png" alt="TVS"><span>TVS</span></div>
+            <div class="brand-card"><img src="assets/royalenfield.png" alt="Royal Enfield"><span>Royal Enfield</span></div>
+            <div class="brand-card"><img src="assets/suzuki.png" alt="Suzuki"><span>Suzuki</span></div>
+            <div class="brand-card"><img src="assets/yamaha.png" alt="Yamaha"><span>Yamaha</span></div>
+            <div class="brand-card"><img src="assets/ktm.png" alt="KTM"><span>KTM</span></div>
+            <div class="brand-card"><img src="assets/jawa.png" alt="Jawa"><span>Jawa</span></div>
+        </div>
+        <button class="solid-btn" onclick="window.location.href='bikes.html'">View all bikes</button>
+    </section>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+
+        const supabaseUrl = "https://vyosnvoqqdreonojihcm.supabase.co";
+        const supabaseKey = "sb_publishable_wW_mJdQCU3ErplTFPqH5Nw_ZoXMui63";
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        async function fetchBikes() {
+            const { data, error } = await supabase
+                .from('bikes')
+                .select('*')
+                .limit(8); // Limits to 8 bikes for the featured row
+
+            const container = document.getElementById('bikes-container');
+
+            if (error) {
+                console.error('Error fetching bikes:', error);
+                container.innerHTML = '<p>Failed to load bikes.</p>';
+                return;
+            }
+
+            container.innerHTML = ''; 
+
+            data.forEach(bike => {
+                // Correctly mapping your Supabase columns
+                const displayPrice = !isNaN(bike.price) ? Number(bike.price).toLocaleString('en-IN') : bike.price;
+                const imageUrl = (bike.imageUrls && bike.imageUrls.length > 0) ? bike.imageUrls[0] : 'assets/placeholder.jpg';
+                const km = bike.kmDriven ? bike.kmDriven + ' km' : '0 km';
+                const isSold = bike.status === 'Sold';
+
+                const cardHTML = `
+                    <div class="carousel-card">
+                        ${isSold ? '<div class="sold-badge" style="position: absolute; top: 10px; left: 10px; background: red; padding: 5px; border-radius: 5px; z-index: 2; font-size: 12px; font-weight: bold;">SOLD</div>' : ''}
+                        
+                        <img src="${imageUrl}" alt="${bike.name}" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid #222;">
+                        
+                        <div style="padding: 15px; text-align: left;">
+                            <h4 style="margin-bottom: 5px; font-size: 18px;">${bike.name}</h4>
+                            <p style="color: #aaa; font-size: 14px; margin-bottom: 10px;">${km} • ${bike.year}</p>
+                            <h3 style="color: #fc0e0e; font-size: 20px;">₹ ${displayPrice}</h3>
+
+                            <button class="neon-btn" style="width: 100%; margin-top: 15px;" onclick="window.location.href='bike-details.html?id=${bike.id}'">View Details</button>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        fetchBikes();
+
+        // Carousel Scroll Logic
+        window.scrollCarousel = function(direction) {
+            const container = document.getElementById('bikes-container');
+            const scrollAmount = 300; // Roughly the width of one card + gap
+            container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

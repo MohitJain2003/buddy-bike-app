@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="css/admin-dashboard.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<h1>Admin Panel</h1>
+
+<div class="card-container">
+
+<a href="add-bike.html" class="card">
+<h2>Add Bike</h2>
+<p>Add new bike listings</p>
+</a>
+
+<a href="manage-bikes.html" class="card">
+<h2>Manage Bikes</h2>
+<p>Edit / Delete existing bikes</p>
+</a>
+
+</div>
+
+<button class="logout-btn" onclick="logout()">Logout</button>
+
+</div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/auth.js"></script>
+
+</body>
+</html>

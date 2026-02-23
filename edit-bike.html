@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Bike - Admin</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="js/supabaseClient.js"></script>
+</head>
+
+<body class="bg-dark text-light">
+
+    <nav class="navbar">
+        <h2>⚡ Buddy Bike Admin</h2>
+        <div class="nav-links" style="display: flex; gap: 15px;">
+            <a href="manage-bikes.html"><button class="neon-btn">Back to Bikes</button></a>
+            <a href="admin-dashboard.html"><button class="neon-btn">Dashboard</button></a>
+        </div>
+    </nav>
+
+    <section class="admin-section" style="max-width: 600px; margin: 40px auto; padding: 20px;">
+        <h2 class="glow page-title" style="margin-bottom: 30px; text-align: center;">Edit Bike Details</h2>
+        
+        <div class="bike-card" style="padding: 30px; background: #0a0a0a; text-align: left;">
+            <form id="editForm">
+                
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px;">
+                    <div class="input-group">
+                        <label for="name">Bike Name</label>
+                        <input type="text" id="name" class="custom-input" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="vehicleNumber">Vehicle No. (Admin)</label>
+                        <input type="text" id="vehicleNumber" class="custom-input" placeholder="MH-12-AB-1234">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <div class="input-group">
+                        <label for="brand">Brand</label>
+                        <input type="text" id="brand" class="custom-input" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="year">Year</label>
+                        <input type="number" id="year" class="custom-input" required>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <div class="input-group">
+                        <label for="price">Price (₹)</label>
+                        <input type="number" id="price" class="custom-input" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="kmDriven">Kilometers Driven</label>
+                        <input type="number" id="kmDriven" class="custom-input" required>
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-top: 15px;">
+                    <label for="status">Availability Status</label>
+                    <select id="status" class="custom-input">
+                        <option value="Available">Available</option>
+                        <option value="Sold">Sold</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="solid-btn" style="width: 100%; margin-top: 20px; padding: 12px; font-size: 16px;">Update Bike</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="js/editBike.js"></script>
+
+</body>
+</html>
