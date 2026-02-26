@@ -1,0 +1,91 @@
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #050816;
+color: white;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+}
+
+.form-container {
+background: #111;
+padding: 30px;
+border-radius: 15px;
+width: 90%;
+max-width: 450px;
+box-shadow: 0 0 20px rgba(0,255,255,0.2);
+}
+
+h2 {
+text-align: center;
+margin-bottom: 25px;
+color: #ff0000;
+text-shadow: 0 0 15px #ff0000;
+}
+
+form {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+input, select {
+padding: 12px;
+border-radius: 8px;
+border: none;
+background: #020617;
+color: white;
+}
+
+input:focus, select:focus {
+outline: 2px solid #ff0000;
+}
+
+.file-label {
+background: #020617;
+padding: 12px;
+border-radius: 8px;
+cursor: pointer;
+}
+
+.file-label input {
+display: none;
+}
+
+button {
+padding: 12px;
+background: transparent;
+border: 2px solid #ff0000;
+color: #ff0000;
+border-radius: 8px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+button:hover {
+background: #ff0000;
+color: black;
+}
+
+.back-link {
+display: block;
+margin-top: 15px;
+text-align: center;
+color: #ff0000;
+text-decoration: none;
+}
+
+.back-link:hover {
+text-decoration: underline;
+}
+
+/* 📱 Mobile */
+@media (max-width: 500px) {
+
+.form-container {
+padding: 20px;
+}
+
+}
