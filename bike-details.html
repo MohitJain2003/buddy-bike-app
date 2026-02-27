@@ -19,6 +19,8 @@
             border: 1px solid #333;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            /* Added touch-action to prevent page scrolling while swiping left/right */
+            touch-action: pan-y; 
         }
         
         .slider-img {
@@ -78,7 +80,7 @@
             
             <h1 id="detail-name" style="margin-bottom: 30px; font-weight: bold; color: white; letter-spacing: 1px;">Bike Name</h1>
 
-            <div class="slider-container">
+            <div class="slider-container" id="slider-container">
                 <button id="prevBtn" class="slider-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
                 
                 <img id="main-image" class="slider-img" src="" alt="Bike Image">
@@ -168,7 +170,42 @@
             document.getElementById('main-image').src = bikeImages[currentImageIndex];
         }
 
+        // --- NEW SWIPE LOGIC ---
+        function enableSwipe() {
+            const slider = document.getElementById('slider-container');
+            if (!slider) return;
+
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            slider.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            slider.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+
+            function handleSwipe() {
+                const threshold = 50; // Minimum swipe distance
+                const swipeDistance = touchEndX - touchStartX;
+
+                if (swipeDistance < -threshold) {
+                    // Swiped Left - Go to Next Image
+                    changeImage(1);
+                } 
+                
+                if (swipeDistance > threshold) {
+                    // Swiped Right - Go to Previous Image
+                    changeImage(-1);
+                }
+            }
+        }
+
+        // Initialize everything
         loadBikeDetails();
+        enableSwipe();
     </script>
 </body>
 </html>
