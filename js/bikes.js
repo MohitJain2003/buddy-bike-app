@@ -19,8 +19,35 @@ async function loadBikes() {
   bikesData = data;
   filteredData = data;
 
+  // 1. Fill the dropdown menu with all available brands from the database
   populateBrands(data);
-  renderBikes();
+
+  // 2. Read the URL to see what was clicked
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedBrand = urlParams.get('brand');
+
+  if (selectedBrand) {
+    let select = document.getElementById("brandFilter");
+    
+    // Search the dropdown options ignoring uppercase/lowercase differences
+    let options = Array.from(select.options);
+    let match = options.find(opt => opt.value.toLowerCase() === selectedBrand.toLowerCase());
+
+    if (match) {
+        // If a match is found in the database, select it
+        select.value = match.value; 
+    } else {
+        // If the brand doesn't exist in the database yet, add it temporarily so it filters correctly to show 0 results
+        select.innerHTML += `<option value="${selectedBrand}">${selectedBrand}</option>`;
+        select.value = selectedBrand;
+    }
+
+    // Run the filter
+    applyFilters(); 
+  } else {
+    // If no brand was clicked, just load normally
+    renderBikes();
+  }
 }
 
 // ================= POPULATE BRAND FILTER =================
