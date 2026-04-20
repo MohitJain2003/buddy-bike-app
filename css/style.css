@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
 /* ===== GLOBAL ===== */
+
+
 
 * {
 margin: 0;
@@ -7,9 +10,9 @@ box-sizing: border-box;
 }
 
 body {
-background: #050816;
+background: #050505;
 color: white;
-font-family: Arial, sans-serif;
+font-family: 'Outfit', sans-serif;
 overflow-x: hidden;
 }
 
@@ -20,15 +23,21 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 padding: 20px 40px;
-background: #020617;
+background: rgba(2, 6, 23, 0.7);
+backdrop-filter: blur(24px);
+-webkit-backdrop-filter: blur(24px);
+border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 flex-wrap: wrap;
 gap: 10px;
+position: sticky;
+top: 0;
+z-index: 100;
 }
 
 .neon-btn {
-border: 2px solid #fc0e0e;
+border: 2px solid #E63946;
 background: transparent;
-color: #fc0717;
+color: #E63946;
 padding: 10px 20px;
 cursor: pointer;
 transition: 0.3s;
@@ -36,25 +45,47 @@ border-radius: 5px;
 }
 
 .neon-btn:hover {
-background: #ed0b0b;
+background: #D62828;
 color: black;
 }
 
 /* ===== HERO SECTION ===== */
 
 .hero {
-    min-height: 35vh; /* Reduced from 80vh to bring content up */
+    min-height: 45vh; /* Increased slightly for 3D effect */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+#hero-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(230, 57, 70, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(230, 57, 70, 0.15);
 }
 
 .glow {
 font-size: 60px;
-color: #fc0717;
+color: #E63946;
 text-shadow: 0 0 20px #eb0e12eb;
 margin-bottom: 20px;
 }
@@ -110,14 +141,28 @@ overflow: hidden;
 transform: rotateY(180deg);
 }
 
+/* ===== MICRO-ANIMATIONS ===== */
+.liquid-hover {
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.liquid-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(230, 57, 70, 0.3);
+    border-color: #E63946;
+}
+
 /* ===== BIKE CARD ===== */
 
 .bike-card {
-background: #111;
+background: rgba(17, 17, 17, 0.6);
+backdrop-filter: blur(24px);
+-webkit-backdrop-filter: blur(24px);
+border: 1px solid rgba(255, 255, 255, 0.1);
 border-radius: 15px;
 overflow: hidden;
 transition: 0.4s;
-box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+box-shadow: 0 8px 32px 0 rgba(0, 255, 255, 0.1);
 height: 100%;
 display: flex;
 flex-direction: column;
@@ -141,7 +186,7 @@ object-fit: cover;
 position: absolute;
 top: 10px;
 left: 10px;
-background: red;
+background: #E63946;
 color: white;
 padding: 5px 12px;
 font-weight: bold;
@@ -254,12 +299,12 @@ height: 270px;
 
 }
 /* ===== NEW LAYOUT SECTIONS ===== */
-.brands-section, .featured-section {
+.brands-section, .featu#E63946-section {
     text-align: center;
     padding: 20px 20px 40px 20px; /* Reduced top padding to close the gap */
 }
 
-.brands-section h3, .featured-section h3 {
+.brands-section h3, .featu#E63946-section h3 {
     font-size: 32px;
     margin-bottom: 40px;
     color: white;
@@ -308,7 +353,7 @@ height: 270px;
 
 /* ===== SOLID BUTTON (For "View All Bikes") ===== */
 .solid-btn {
-    background: #c60505; /* Matches your screenshot's pink/red button */
+    background: #d90429; /* Deeper, punchier red */
     color: white;
     border: none;
     padding: 12px 30px;
@@ -316,10 +361,12 @@ height: 270px;
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
+    box-shadow: 0 0 15px rgba(230, 57, 70, 0.5); /* Glow to match text */
 }
 
 .solid-btn:hover {
-    background: #f53131;
+    background: #bf0603;
+    box-shadow: 0 0 25px rgba(230, 57, 70, 0.8);
 }
 
 /* ===== JS BIKE CARD INTERNALS ===== */
@@ -366,9 +413,12 @@ height: 270px;
     width: 100%;
     max-width: 500px;
     padding: 30px;
-    background: #111;
+    background: rgba(17, 17, 17, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(230, 57, 70, 0.2);
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(252, 14, 14, 0.15); /* Subtle red glow */
+    box-shadow: 0 8px 32px 0 rgba(230, 57, 70, 0.15);
     text-align: left;
 }
 
@@ -397,8 +447,8 @@ height: 270px;
 }
 
 .input-group input:focus {
-    border-color: #fc0e0e;
-    box-shadow: 0 0 8px rgba(252, 14, 14, 0.5);
+    border-color: #E63946;
+    box-shadow: 0 0 8px rgba(230, 57, 70, 0.5);
 }
 
 .result-box {
@@ -450,12 +500,15 @@ height: 270px;
     flex-wrap: wrap;
     width: 100%;
     max-width: 900px;
-    background: #111;
+    background: rgba(17, 17, 17, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(230, 57, 70, 0.2);
     border-radius: 15px;
     padding: 0; /* Removing padding so map hits the edges */
     overflow: hidden;
     text-align: left;
-    box-shadow: 0 0 15px rgba(252, 14, 14, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(230, 57, 70, 0.15);
 }
 
 .contact-info {
@@ -468,7 +521,7 @@ height: 270px;
     color: white;
     font-size: 22px;
     margin-bottom: 20px;
-    border-bottom: 2px solid #fc0e0e;
+    border-bottom: 2px solid #E63946;
     display: inline-block;
     padding-bottom: 5px;
 }
@@ -481,7 +534,7 @@ height: 270px;
 }
 
 .phone-link {
-    color: #fc0e0e;
+    color: #E63946;
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
@@ -490,7 +543,7 @@ height: 270px;
 
 .phone-link:hover {
     color: #ff4d4d;
-    text-shadow: 0 0 8px rgba(252, 14, 14, 0.6);
+    text-shadow: 0 0 8px rgba(230, 57, 70, 0.6);
 }
 
 .contact-map {
@@ -542,15 +595,16 @@ height: 270px;
 }
 
 .custom-input:focus {
-    border-color: #fc0e0e;
-    box-shadow: 0 0 10px rgba(252, 14, 14, 0.4);
+    border-color: #E63946;
+    box-shadow: 0 0 10px rgba(230, 57, 70, 0.4);
 }
 
 /* Responsive Bike Gallery Grid */
 .gallery-grid {
     display: grid;
     /* This automatically creates as many columns as will fit, sizing them between 260px and 1 fraction of the space */
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: minmax(min-content, max-content);
     gap: 25px;
     text-align: left;
 }
@@ -570,8 +624,8 @@ height: 270px;
 
 .gallery-card:hover {
     transform: translateY(-8px);
-    border-color: #fc0e0e;
-    box-shadow: 0 10px 25px rgba(252, 14, 14, 0.2);
+    border-color: #E63946;
+    box-shadow: 0 10px 25px rgba(230, 57, 70, 0.2);
 }
 
 .gallery-img-container {
@@ -617,7 +671,7 @@ height: 270px;
 
 .gallery-price {
     font-size: 22px;
-    color: #fc0e0e;
+    color: #E63946;
     font-weight: bold;
     margin-bottom: 15px;
 }
@@ -643,7 +697,7 @@ height: 270px;
     position: absolute;
     top: 15px;
     left: 15px;
-    background: #fc0e0e;
+    background: #E63946;
     color: white;
     padding: 5px 12px;
     font-weight: bold;
@@ -765,8 +819,8 @@ height: 270px;
 }
 
 .carousel-btn:hover {
-    background: #fc0e0e;
-    border-color: #fc0e0e;
+    background: #E63946;
+    border-color: #E63946;
 }
 
 .left-btn { left: 0; }
@@ -789,8 +843,8 @@ height: 270px;
         margin-bottom: 0 !important;
     }
 
-    /* Pulls "Featured bikes" up closer to the text above it */
-    .featured-section {
+    /* Pulls "Featu#E63946 bikes" up closer to the text above it */
+    .featu#E63946-section {
         padding-top: 20px !important;
     }
 }
@@ -863,9 +917,9 @@ height: 270px;
 }
 
 .status-sold {
-    background: rgba(252, 14, 14, 0.1);
-    color: #fc0e0e;
-    border: 1px solid #fc0e0e;
+    background: rgba(230, 57, 70, 0.1);
+    color: #E63946;
+    border: 1px solid #E63946;
 }
 
 /* Action Buttons */
@@ -894,12 +948,12 @@ height: 270px;
 }
 
 .delete-btn {
-    background: rgba(252, 14, 14, 0.1);
-    color: #fc0e0e;
-    border: 1px solid #fc0e0e;
+    background: rgba(230, 57, 70, 0.1);
+    color: #E63946;
+    border: 1px solid #E63946;
 }
 
 .delete-btn:hover {
-    background: #fc0e0e;
+    background: #E63946;
     color: black;
 }
