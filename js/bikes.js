@@ -104,7 +104,7 @@ function renderBikes() {
     let displayPrice = !isNaN(bike.price) ? Number(bike.price).toLocaleString('en-IN') : bike.price;
 
     card.innerHTML = `
-    <div class="gallery-card">
+    <div class="gallery-card liquid-hover" style="background: rgba(17, 17, 17, 0.6); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.1);">
       <div class="sold-badge ${bike.status === "Sold" ? "" : "d-none"}">
         SOLD
       </div>

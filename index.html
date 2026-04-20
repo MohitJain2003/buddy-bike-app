@@ -5,9 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buddy Bike</title>
     <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Supabase Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabaseClient.js"></script>
 </head>
 
 <body>
+    
 
     <nav class="navbar">
         <h2>⚡ Buddy Bike</h2>
@@ -19,12 +28,15 @@
     </nav>
 
     <section class="hero">
-        <h1 class="glow">Ride The Future</h1>
-        <p>Premium Used Bikes Marketplace</p>
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content">
+            <h1 class="glow">Ride The Future</h1>
+            <p>Premium Used Bikes Marketplace</p>
+        </div>
     </section>
 
     <section class="featured-section">
-        <h3>Featured bikes</h3>
+        <h3 style="text-align: center; width: 100%;">Featured bikes</h3>
         
         <div class="carousel-wrapper">
             <button class="carousel-btn left-btn" onclick="scrollCarousel(-1)">&#10094;</button>
@@ -36,7 +48,7 @@
             <button class="carousel-btn right-btn" onclick="scrollCarousel(1)">&#10095;</button>
         </div>
 
-        <button class="solid-btn" style="margin-top: 30px;" onclick="window.location.href='bikes.html'">View all bikes</button>
+        <button class="solid-btn" style="display: block; margin: 30px auto;" onclick="window.location.href='bikes.html'">View all bikes</button>
     </section>
 
     <section class="brands-section">
@@ -78,18 +90,15 @@
                 <img src="assets/jawa.png" alt="Jawa"><span>Jawa</span>
             </div>
         </div>
-        <button class="solid-btn" onclick="window.location.href='bikes.html'">View all bikes</button>
+        <button class="solid-btn" style="display: block; margin: 30px auto;" onclick="window.location.href='bikes.html'">View all bikes</button>
     </section>
 
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+    <!-- Custom Three.js Scene -->
+    <script src="js/three-bg.js"></script>
 
-        const supabaseUrl = "https://vyosnvoqqdreonojihcm.supabase.co";
-        const supabaseKey = "sb_publishable_wW_mJdQCU3ErplTFPqH5Nw_ZoXMui63";
-        const supabase = createClient(supabaseUrl, supabaseKey);
-
+    <script>
         async function fetchBikes() {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('bikes')
                 .select('*')
                 .limit(8); // Limits to 8 bikes for the featured row
@@ -120,7 +129,7 @@
                         <div style="padding: 15px; text-align: left;">
                             <h4 style="margin-bottom: 5px; font-size: 18px;">${bike.name}</h4>
                             <p style="color: #aaa; font-size: 14px; margin-bottom: 10px;">${km} • ${bike.year}</p>
-                            <h3 style="color: #fc0e0e; font-size: 20px;">₹ ${displayPrice}</h3>
+                            <h3 style="color: #E63946; font-size: 20px;">₹ ${displayPrice}</h3>
 
                             <button class="neon-btn" style="width: 100%; margin-top: 15px;" onclick="window.location.href='bike-details.html?id=${bike.id}'">View Details</button>
                         </div>
