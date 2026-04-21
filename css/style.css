@@ -78,9 +78,6 @@ color: black;
     z-index: 1;
     background: transparent;
     padding: 40px;
-    border-radius: 20px;
-    border: 1px solid rgba(230, 57, 70, 0.4);
-    box-shadow: 0 8px 32px 0 rgba(230, 57, 70, 0.15);
 }
 
 .glow {
@@ -299,12 +296,12 @@ height: 270px;
 
 }
 /* ===== NEW LAYOUT SECTIONS ===== */
-.brands-section, .featu#E63946-section {
+.brands-section, .featured-section {
     text-align: center;
     padding: 20px 20px 40px 20px; /* Reduced top padding to close the gap */
 }
 
-.brands-section h3, .featu#E63946-section h3 {
+.brands-section h3, .featured-section h3 {
     font-size: 32px;
     margin-bottom: 40px;
     color: white;
