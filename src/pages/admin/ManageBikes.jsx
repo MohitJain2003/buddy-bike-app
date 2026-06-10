@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabaseClient } from '../../utils/supabaseClient';
 import { Link, useNavigate } from 'react-router-dom';
 import ThreeBg from '../../components/ThreeBg';
-import { ArrowLeft, PlusCircle, Pencil, Trash2, LayoutDashboard, Bike, AlertTriangle } from 'lucide-react';
+import { PlusCircle, Pencil, Trash2, LayoutDashboard, Bike } from 'lucide-react';
 
 const ManageBikes = () => {
   const [bikes, setBikes] = useState([]);
