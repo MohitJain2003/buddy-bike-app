@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabaseClient } from '../utils/supabaseClient';
 import { Link } from 'react-router-dom';
 import ThreeBg from '../components/ThreeBg';
-import BikeCard from '../components/BikeCard';
-import { ChevronLeft, ChevronRight, ArrowRight, Shield, Award, Clock, TrendingUp } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, Shield, Award, Clock, TrendingUp, Phone } from 'lucide-react';
 
 const Home = () => {
   const [bikes, setBikes] = useState([]);
@@ -57,14 +56,14 @@ const Home = () => {
       </section>
 
       {/* Stats Bar */}
-      <section style={{ background: var(--bg-secondary), borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
+      <section style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--space-4)', padding: 'var(--space-8) var(--space-6)' }}>
           {stats.map((stat, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', justifyContent: 'center' }}>
-              <div style={{ color: var(--primary), display: 'flex' }}>{stat.icon}</div>
+              <div style={{ color: 'var(--primary)', display: 'flex' }}>{stat.icon}</div>
               <div>
-                <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-xl)', fontWeight: 800, color: var(--text-primary) }}>{stat.value}</div>
-                <div style={{ fontSize: 'var(--text-sm)', color: var(--text-muted) }}>{stat.label}</div>
+                <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-xl)', fontWeight: 800, color: 'var(--text-primary)' }}>{stat.value}</div>
+                <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-muted)' }}>{stat.label}</div>
               </div>
             </div>
           ))}
