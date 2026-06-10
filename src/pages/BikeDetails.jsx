@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabaseClient } from '../utils/supabaseClient';
 import ThreeBg from '../components/ThreeBg';
+import { ChevronLeft, ChevronRight, ArrowLeft, Phone, Tag, Calendar, Gauge, Fuel, Share2, Heart } from 'lucide-react';
 
 const BikeDetails = () => {
   const { id } = useParams();
@@ -34,6 +35,7 @@ const BikeDetails = () => {
       setError("Bike not found.");
       setLoading(false);
     }
+    setCurrentImageIndex(0);
   }, [id]);
 
   const changeImage = (step) => {
@@ -62,77 +64,157 @@ const BikeDetails = () => {
   const handleSwipe = () => {
     const threshold = 50;
     const swipeDistance = touchEndX - touchStartX;
-
-    if (swipeDistance < -threshold) {
-      changeImage(1); // Swiped left -> Next
-    }
-    if (swipeDistance > threshold) {
-      changeImage(-1); // Swiped right -> Prev
-    }
+    if (swipeDistance < -threshold) changeImage(1);
+    if (swipeDistance > threshold) changeImage(-1);
   };
 
   if (loading) {
-    return <div style={{ color: 'white', fontSize: '18px', textAlign: 'center', marginTop: '40px' }}>Loading bike details...</div>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div className="spinner" />
+          <p style={{ color: 'var(--text-muted)', marginTop: 'var(--text-4)' }}>Loading bike details...</p>
+        </div>
+      </div>
+    );
   }
 
   if (error || !bike) {
-    return <div style={{ color: 'white', fontSize: '18px', textAlign: 'center', marginTop: '40px' }}>{error || "Bike not found."}</div>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <div style={{ textAlign: 'center' }}>
+          <p style={{ color: 'var(--danger)', fontSize: 'var(--text-lg)', marginBottom: 'var(--space-4)' }}>{error || "Bike not found."}</p>
+          <Link to="/bikes" className="btn btn-outline">
+            <ArrowLeft size={16} /> Back to Bikes
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   const images = bike.imageUrls || [];
   const hasImages = images.length > 0;
   const currentImage = hasImages ? images[currentImageIndex] : '/assets/placeholder.jpg';
   const showArrows = images.length > 1;
+  const isSold = bike.status === 'Sold';
+  const displayPrice = !isNaN(bike.price) ? Number(bike.price).toLocaleString('en-IN') : bike.price;
+
+  const specs = [
+    { icon: <Tag size={16} />, label: 'Price', value: `₹ ${displayPrice}`, highlight: true },
+    { icon: <Tag size={16} />, label: 'Brand', value: bike.brand || 'N/A' },
+    { icon: <Calendar size={16} />, label: 'Year', value: bike.year || 'N/A' },
+    { icon: <Gauge size={16} />, label: 'KM Driven', value: bike.kmDriven ? `${Number(bike.kmDriven).toLocaleString('en-IN')} km` : '0 km' },
+    { icon: <Fuel size={16} />, label: 'Status', value: bike.status || 'Available', isStatus: true },
+  ];
 
   return (
     <>
       <ThreeBg />
-      <section className="details-section" style={{ maxWidth: '1000px', margin: '40px auto', padding: '20px', textAlign: 'center' }}>
-        
-        <h1 id="detail-name" style={{ marginBottom: '30px', fontWeight: 'bold', color: 'white', letterSpacing: '1px' }}>
-          {bike.name}
-        </h1>
+      <section className="details-section">
+        {/* Breadcrumb */}
+        <div className="breadcrumb">
+          <Link to="/">Home</Link>
+          <span className="breadcrumb-separator">/</span>
+          <Link to="/bikes">Bikes</Link>
+          <span className="breadcrumb-separator">/</span>
+          <span className="breadcrumb-current">{bike.name}</span>
+        </div>
 
-        <div 
-          className="slider-container" 
-          onTouchStart={handleTouchStart} 
+        {/* Back Link */}
+        <Link to="/bikes" className="btn btn-ghost btn-sm" style={{ marginBottom: 'var(--space-6)', display: 'inline-flex' }}>
+          <ArrowLeft size={16} /> Back to all bikes
+        </Link>
+
+        {/* Image Slider */}
+        <div
+          className="slider-container"
+          onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          style={{ position: 'relative', width: '100%', maxWidth: '800px', margin: '0 auto 40px auto', background: '#0a0a0a', borderRadius: '12px', border: '1px solid #333', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', touchAction: 'pan-y' }}
         >
           {showArrows && (
-            <button 
-              className="slider-btn" 
-              onClick={() => changeImage(-1)}
-              style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', background: 'rgba(10, 10, 10, 0.8)', color: 'white', border: '2px solid #555', borderRadius: '50%', width: '50px', height: '50px', fontSize: '24px', cursor: 'pointer', zIndex: 10, display: 'flex', justifyContent: 'center', alignItems: 'center', left: '15px' }}
-            >
-              &#10094;
+            <button className="slider-btn" onClick={() => changeImage(-1)} aria-label="Previous image">
+              <ChevronLeft size={24} />
             </button>
           )}
-          
-          <img className="slider-img" src={currentImage} alt={bike.name} style={{ width: '100%', height: '450px', objectFit: 'cover', display: 'block' }} />
-          
+
+          <img className="slider-img" src={currentImage} alt={`${bike.name} - Image ${currentImageIndex + 1}`} />
+
+          {isSold && <div className="sold-badge" style={{ top: 'var(--space-4)', left: 'var(--space-4)', fontSize: 'var(--text-sm)', padding: 'var(--space-2) var(--space-4)' }}>SOLD</div>}
+
           {showArrows && (
-            <button 
-              className="slider-btn" 
-              onClick={() => changeImage(1)}
-              style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', background: 'rgba(10, 10, 10, 0.8)', color: 'white', border: '2px solid #555', borderRadius: '50%', width: '50px', height: '50px', fontSize: '24px', cursor: 'pointer', zIndex: 10, display: 'flex', justifyContent: 'center', alignItems: 'center', right: '15px' }}
-            >
-              &#10095;
+            <button className="slider-btn" onClick={() => changeImage(1)} aria-label="Next image">
+              <ChevronRight size={24} />
             </button>
+          )}
+
+          {/* Dots */}
+          {showArrows && (
+            <div className="slider-dots">
+              {images.map((_, idx) => (
+                <button
+                  key={idx}
+                  className={`slider-dot ${idx === currentImageIndex ? 'active' : ''}`}
+                  onClick={() => setCurrentImageIndex(idx)}
+                  aria-label={`View image ${idx + 1}`}
+                />
+              ))}
+            </div>
           )}
         </div>
 
-        <div className="bike-card" style={{ padding: '30px', textAlign: 'left', background: '#0a0a0a', maxWidth: '800px', margin: '0 auto' }}>
-          <h3 style={{ color: '#fc0e0e' }}>Specifications</h3>
-          <hr style={{ borderColor: '#333', margin: '15px 0' }} />
-          
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', fontSize: '16px' }}>
-            <p><strong>Price:</strong> <span style={{ color: '#ccc' }}>₹ {!isNaN(bike.price) ? Number(bike.price).toLocaleString('en-IN') : bike.price}</span></p>
-            <p><strong>Brand:</strong> <span style={{ color: '#ccc' }}>{bike.brand}</span></p>
-            <p><strong>Year:</strong> <span style={{ color: '#ccc' }}>{bike.year}</span></p>
-            <p><strong>Kilometers Driven:</strong> <span style={{ color: '#ccc' }}>{bike.kmDriven ? bike.kmDriven + ' km' : '0 km'}</span></p>
-            <p><strong>Status:</strong> <span style={{ color: '#ccc' }}>{bike.status || "Available"}</span></p>
+        {/* Title & Actions */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 'var(--space-4)', marginBottom: 'var(--space-8)' }}>
+          <div>
+            <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-3xl)', fontWeight: 800, color: 'var(--text-primary)', marginBottom: 'var(--space-2)' }}>
+              {bike.name}
+            </h1>
+            <p style={{ color: 'var(--text-muted)', fontSize: 'var(--text-base)' }}>
+              {bike.brand} • {bike.year} • {bike.model}
+            </p>
           </div>
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <button className="btn btn-ghost btn-sm" aria-label="Share">
+              <Share2 size={16} />
+            </button>
+            <button className="btn btn-ghost btn-sm" aria-label="Save to favorites">
+              <Heart size={16} />
+            </button>
+          </div>
+        </div>
+
+        {/* Specs Card */}
+        <div className="card" style={{ padding: 'var(--space-6)', marginBottom: 'var(--space-8)' }}>
+          <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-xl)', marginBottom: 'var(--space-5)', display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+            Specifications
+          </h3>
+          <div className="specs-grid">
+            {specs.map((spec, i) => (
+              <div key={i} className="spec-item">
+                <span className="spec-label">
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-muted)' }}>
+                    {spec.icon} {spec.label}
+                  </span>
+                </span>
+                <span className="spec-value" style={
+                  spec.highlight ? { color: 'var(--primary)', fontSize: 'var(--text-lg)', fontFamily: 'var(--font-heading)' } :
+                  spec.isStatus ? { color: bike.status === 'Sold' ? 'var(--danger)' : 'var(--success)', fontWeight: 700 } :
+                  {}
+                }>
+                  {spec.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div style={{ display: 'flex', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
+          <a href="tel:+917387015887" className="btn btn-primary btn-lg" style={{ flex: 1, minWidth: '200px' }}>
+            <Phone size={18} /> Call Dealer
+          </a>
+          <Link to="/emi-calculator" className="btn btn-secondary btn-lg" style={{ flex: 1, minWidth: '200px' }}>
+            Calculate EMI
+          </Link>
         </div>
       </section>
     </>

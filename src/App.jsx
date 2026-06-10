@@ -21,14 +21,14 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <main>
+        <main style={{ minHeight: 'calc(100vh - var(--navbar-height))' }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/bikes" element={<Bikes />} />
             <Route path="/bikes/:id" element={<BikeDetails />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/emi-calculator" element={<EmiCalculator />} />
-            
+
             {/* Admin Routes */}
             <Route path="/admin" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />

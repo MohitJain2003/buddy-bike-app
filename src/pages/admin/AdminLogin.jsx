@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { supabaseClient } from '../../utils/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import ThreeBg from '../../components/ThreeBg';
-import '../../index.css'; // Global styles
+import { Lock, Mail, Eye, EyeOff, ArrowRight, Shield } from 'lucide-react';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -16,6 +18,7 @@ const AdminLogin = () => {
       return;
     }
 
+    setIsLoading(true);
     const { error } = await supabaseClient.auth.signInWithPassword({
       email,
       password
@@ -23,45 +26,111 @@ const AdminLogin = () => {
 
     if (error) {
       alert(error.message);
+      setIsLoading(false);
       return;
     }
 
-    alert("Login Successful ✅");
     navigate('/admin/dashboard');
   };
 
   return (
     <>
       <ThreeBg />
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '20px' }}>
-        <div className="login-container" style={{ background: '#020617', padding: '40px', borderRadius: '10px', width: '300px', textAlign: 'center', boxShadow: '0 0 15px cyan' }}>
-          <h2 style={{ marginBottom: '20px', color: '#ff0000' }}>Admin Login</h2>
-          
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: 'var(--space-6)' }}>
+        <div style={{
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
+          borderRadius: 'var(--radius-xl)',
+          padding: 'var(--space-10)',
+          width: '100%',
+          maxWidth: '420px',
+          boxShadow: 'var(--shadow-xl)',
+          textAlign: 'center',
+        }}>
+          {/* Header */}
+          <div style={{
+            width: '64px',
+            height: '64px',
+            margin: '0 auto var(--space-5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'var(--primary-subtle)',
+            border: '1px solid var(--primary-border)',
+            borderRadius: 'var(--radius-lg)',
+            color: 'var(--primary)',
+          }}>
+            <Shield size={28} />
+          </div>
+
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-2xl)', fontWeight: 800, marginBottom: 'var(--space-2)' }}>
+            Admin Panel
+          </h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-8)' }}>
+            Sign in to manage your bike inventory
+          </p>
+
           <form onSubmit={handleLogin}>
-            <input 
-              type="email" 
-              placeholder="Enter Email" 
-              required 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{ width: '100%', padding: '10px', margin: '10px 0', border: 'none', borderRadius: '5px' }}
-            />
-            <input 
-              type="password" 
-              placeholder="Enter Password" 
-              required 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={{ width: '100%', padding: '10px', margin: '10px 0', border: 'none', borderRadius: '5px' }}
-            />
-            
-            <button 
+            <div style={{ marginBottom: 'var(--space-4)', textAlign: 'left' }}>
+              <label htmlFor="admin-email" style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 'var(--space-2)' }}>
+                Email Address
+              </label>
+              <div style={{ position: 'relative' }}>
+                <Mail size={16} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', pointerEvents: 'none' }} />
+                <input
+                  id="admin-email"
+                  type="email"
+                  placeholder="admin@example.com"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="custom-input"
+                  style={{ paddingLeft: '40px' }}
+                />
+              </div>
+            </div>
+
+            <div style={{ marginBottom: 'var(--space-6)', textAlign: 'left' }}>
+              <label htmlFor="admin-password" style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 'var(--space-2)' }}>
+                Password
+              </label>
+              <div style={{ position: 'relative' }}>
+                <Lock size={16} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', pointerEvents: 'none' }} />
+                <input
+                  id="admin-password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter your password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="custom-input"
+                  style={{ paddingLeft: '40px', paddingRight: '44px' }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px', display: 'flex' }}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+            </div>
+
+            <button
               type="submit"
-              style={{ width: '100%', padding: '10px', background: 'transparent', border: '2px solid #ff0000', color: '#ff0000', cursor: 'pointer', transition: '0.3s', marginTop: '10px' }}
-              onMouseOver={(e) => { e.target.style.background = '#ff002b'; e.target.style.color = 'black'; }}
-              onMouseOut={(e) => { e.target.style.background = 'transparent'; e.target.style.color = '#ff0000'; }}
+              className="solid-btn btn-lg"
+              disabled={isLoading}
+              style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)' }}
             >
-              Login
+              {isLoading ? (
+                <>
+                  <div className="spinner" style={{ width: '18px', height: '18px', borderWidth: '2px' }} />
+                  Signing in...
+                </>
+              ) : (
+                <>Sign In <ArrowRight size={18} /></>
+              )}
             </button>
           </form>
         </div>

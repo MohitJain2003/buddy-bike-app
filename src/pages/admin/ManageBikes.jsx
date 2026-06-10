@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabaseClient } from '../../utils/supabaseClient';
 import { Link, useNavigate } from 'react-router-dom';
 import ThreeBg from '../../components/ThreeBg';
+import { ArrowLeft, PlusCircle, Pencil, Trash2, LayoutDashboard, Bike, AlertTriangle } from 'lucide-react';
 
 const ManageBikes = () => {
   const [bikes, setBikes] = useState([]);
@@ -31,7 +32,6 @@ const ManageBikes = () => {
       setBikes(data);
     } else {
       console.error(error);
-      alert("Failed to load bikes: " + error.message);
     }
     setLoading(false);
   };
@@ -43,7 +43,7 @@ const ManageBikes = () => {
           .from("bikes")
           .delete()
           .eq("id", id);
-        
+
         if (error) {
           console.error("Delete error:", error);
           alert("Failed to delete: " + error.message);
@@ -60,58 +60,82 @@ const ManageBikes = () => {
   return (
     <>
       <ThreeBg />
-      <section className="admin-section" style={{ padding: '40px 20px', maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
-        <h2 className="glow page-title" style={{ marginBottom: '30px' }}>Manage Bikes</h2>
-        
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '30px' }}>
-          <Link to="/admin/dashboard"><button className="neon-btn">Dashboard</button></Link>
-          <Link to="/admin/add-bike"><button className="neon-btn">Add Bike</button></Link>
+      <section className="admin-section">
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-6)', flexWrap: 'wrap', gap: 'var(--space-4)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+            <div style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--primary-subtle)', border: '1px solid var(--primary-border)', borderRadius: 'var(--radius-lg)', color: 'var(--primary)' }}>
+              <Bike size={22} />
+            </div>
+            <div>
+              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-2xl)', fontWeight: 800, color: 'var(--text-primary)' }}>Manage Bikes</h2>
+              <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-muted)' }}>{bikes.length} total listings</p>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+            <Link to="/admin/dashboard" className="btn btn-secondary btn-sm">
+              <LayoutDashboard size={16} /> Dashboard
+            </Link>
+            <Link to="/admin/add-bike" className="btn btn-primary btn-sm">
+              <PlusCircle size={16} /> Add Bike
+            </Link>
+          </div>
         </div>
 
-        <div className="table-container" style={{ background: '#111', padding: '20px', borderRadius: '15px', overflowX: 'auto' }}>
-          <table className="admin-table" style={{ width: '100%', borderCollapse: 'collapse', color: 'white', textAlign: 'left' }}>
+        {/* Table */}
+        <div className="table-container">
+          <table className="admin-table">
             <thead>
-              <tr style={{ borderBottom: '2px solid #333' }}>
-                <th style={{ padding: '15px' }}>Vehicle No.</th>
-                <th style={{ padding: '15px' }}>Bike Name</th>
-                <th style={{ padding: '15px' }}>Status</th>
-                <th style={{ padding: '15px' }}>Actions</th>
+              <tr>
+                <th>Bike Name</th>
+                <th>Brand</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="4" style={{ textAlign: 'center', padding: '30px', color: '#aaa' }}>Loading bikes from database...</td>
+                  <td colSpan="5" style={{ textAlign: 'center', padding: 'var(--space-10)' }}>
+                    <div className="spinner" style={{ margin: '0 auto' }} />
+                    <p style={{ color: 'var(--text-muted)', marginTop: 'var(--space-3)', fontSize: 'var(--text-sm)' }}>Loading bikes...</p>
+                  </td>
                 </tr>
               ) : bikes.length === 0 ? (
                 <tr>
-                  <td colSpan="4" style={{ textAlign: 'center', padding: '30px', color: '#aaa' }}>No bikes found.</td>
+                  <td colSpan="5" style={{ textAlign: 'center', padding: 'var(--space-10)' }}>
+                    <Bike size={32} style={{ color: 'var(--text-muted)', opacity: 0.4, margin: '0 auto var(--space-3)', display: 'block' }} />
+                    <p style={{ color: 'var(--text-muted)' }}>No bikes found. <Link to="/admin/add-bike" style={{ color: 'var(--primary)' }}>Add your first bike</Link></p>
+                  </td>
                 </tr>
               ) : (
                 bikes.map(b => (
-                  <tr key={b.id} style={{ borderBottom: '1px solid #333' }}>
-                    <td style={{ color: '#fc0e0e', fontFamily: 'monospace', padding: '15px' }}>{b.vehicleNumber || '-'}</td>
-                    <td style={{ fontWeight: 'bold', fontSize: '16px', padding: '15px' }}>{b.name}</td>
-                    <td style={{ padding: '15px' }}>
-                      <span style={{ 
-                        padding: '5px 10px', 
-                        borderRadius: '5px', 
-                        fontSize: '14px',
-                        background: b.status === 'Sold' ? '#fc0e0e' : '#00e5ff',
-                        color: b.status === 'Sold' ? 'white' : 'black' 
-                      }}>
-                        {b.status || "Available"}
+                  <tr key={b.id}>
+                    <td>
+                      <div style={{ fontWeight: 600, fontSize: 'var(--text-sm)' }}>{b.name}</div>
+                      {b.vehicleNumber && (
+                        <div style={{ fontSize: 'var(--text-xs)', color: 'var(--text-muted)', fontFamily: 'monospace', marginTop: '2px' }}>{b.vehicleNumber}</div>
+                      )}
+                    </td>
+                    <td style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)' }}>{b.brand || '-'}</td>
+                    <td style={{ fontWeight: 700, fontSize: 'var(--text-sm)', color: 'var(--primary)' }}>
+                      ₹ {!isNaN(b.price) ? Number(b.price).toLocaleString('en-IN') : b.price}
+                    </td>
+                    <td>
+                      <span className={`status-badge ${b.status === 'Sold' ? 'status-sold' : 'status-available'}`}>
+                        {b.status || 'Available'}
                       </span>
                     </td>
-                    <td style={{ padding: '15px' }}>
-                      <Link to={`/admin/edit-bike/${b.id}`} style={{ marginRight: '10px' }}>
-                        <button style={{ padding: '8px 15px', background: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Edit</button>
+                    <td>
+                      <Link to={`/admin/edit-bike/${b.id}`} className="action-btn edit-btn">
+                        <Pencil size={14} /> Edit
                       </Link>
-                      <button 
+                      <button
                         onClick={() => handleDelete(b.id)}
-                        style={{ padding: '8px 15px', background: '#fc0e0e', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
+                        className="action-btn delete-btn"
                       >
-                        Delete
+                        <Trash2 size={14} /> Delete
                       </button>
                     </td>
                   </tr>
