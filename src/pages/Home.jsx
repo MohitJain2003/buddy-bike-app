@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabaseClient } from '../utils/supabaseClient';
 import { Link } from 'react-router-dom';
 import ThreeBg from '../components/ThreeBg';
-import { ChevronLeft, ChevronRight, ArrowRight, Shield, Award, Clock, TrendingUp, Phone } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, Shield, Award, Clock, TrendingUp, Phone, Bike, Trophy, Flag } from 'lucide-react';
 
 const Home = () => {
   const [bikes, setBikes] = useState([]);
@@ -40,11 +40,11 @@ const Home = () => {
         <ThreeBg />
         <div className="hero-content">
           <div className="hero-badge">
-            <span>🏍️</span> Premium Used Bikes Marketplace
+            <Bike size={16} /> Premium Used Bikes Marketplace
           </div>
-          <h1 className="glow">Ride The Future</h1>
+          <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 800, marginBottom: 'var(--space-4)', letterSpacing: '-0.03em', lineHeight: 1.05 }}>Ride The Future</h1>
           <p>Discover curated, quality-verified pre-owned bikes at unbeatable prices. Your next ride starts here.</p>
-          <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center', marginTop: 'var(--space-8)', flexWrap: 'wrap' }}>
+          <div className="hero-buttons">
             <Link to="/bikes" className="solid-btn btn-lg">
               Explore Bikes <ArrowRight size={18} />
             </Link>
@@ -57,7 +57,7 @@ const Home = () => {
 
       {/* Stats Bar */}
       <section style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--space-4)', padding: 'var(--space-8) var(--space-6)' }}>
+        <div className="container home-stats-grid">
           {stats.map((stat, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', justifyContent: 'center' }}>
               <div style={{ color: 'var(--primary)', display: 'flex' }}>{stat.icon}</div>
@@ -73,7 +73,7 @@ const Home = () => {
       {/* Featured Bikes */}
       <section className="featured-section">
         <div className="section-header" style={{ marginBottom: 'var(--space-8)' }}>
-          <span className="section-label">🏆 Featured</span>
+          <span className="section-label"><span className="section-icon"><Trophy size={16} /></span> Featured</span>
           <h3 style={{ fontSize: 'var(--text-3xl)', color: 'var(--text-primary)', marginBottom: 'var(--space-2)' }}>Featured Bikes</h3>
           <p style={{ color: 'var(--text-muted)', maxWidth: '500px', margin: '0 auto' }}>Hand-picked premium bikes from our collection</p>
         </div>
@@ -111,7 +111,7 @@ const Home = () => {
                       <p style={{ color: 'var(--text-muted)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-2)' }}>{km} • {bike.year}</p>
                       <h3 style={{ color: 'var(--primary)', fontSize: 'var(--text-lg)', fontWeight: 800, fontFamily: 'var(--font-heading)' }}>₹ {displayPrice}</h3>
                       <Link to={`/bikes/${bike.id}`}>
-                        <button className="neon-btn" style={{ width: '100%', marginTop: 'var(--space-3)' }}>
+                        <button className="btn btn-outline btn-full" style={{ marginTop: 'var(--space-3)' }}>
                           View Details
                         </button>
                       </Link>
@@ -136,7 +136,7 @@ const Home = () => {
       {/* Brands Section */}
       <section className="brands-section">
         <div className="section-header" style={{ marginBottom: 'var(--space-8)' }}>
-          <span className="section-label">🏁 Brands</span>
+          <span className="section-label"><span className="section-icon"><Flag size={16} /></span> Brands</span>
           <h3 style={{ fontSize: 'var(--text-3xl)', color: 'var(--text-primary)', marginBottom: 'var(--space-2)' }}>Top Brands</h3>
           <p style={{ color: 'var(--text-muted)', maxWidth: '500px', margin: '0 auto' }}>Browse bikes from the most trusted manufacturers</p>
         </div>
@@ -164,8 +164,8 @@ const Home = () => {
 
       {/* CTA Section */}
       <section style={{ padding: 'var(--space-16) var(--space-6)', textAlign: 'center' }}>
-        <div style={{ maxWidth: '700px', margin: '0 auto', background: 'linear-gradient(135deg, var(--primary-subtle), var(--secondary-subtle))', border: '1px solid var(--primary-border)', borderRadius: 'var(--radius-2xl)', padding: 'var(--space-12) var(--space-8)' }}>
-          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-3xl)', fontWeight: 800, marginBottom: 'var(--space-3)' }}>Ready to Find Your Dream Bike?</h2>
+        <div style={{ maxWidth: '700px', margin: '0 auto', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-2xl)', padding: 'var(--space-12) var(--space-8)', boxShadow: 'var(--shadow-xl)' }}>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-3xl)', fontWeight: 800, marginBottom: 'var(--space-3)', color: 'var(--text-primary)' }}>Ready to Find Your Dream Bike?</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: 'var(--space-8)', fontSize: 'var(--text-lg)' }}>Get in touch with our team for personalized recommendations and the best deals.</p>
           <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/contact" className="solid-btn btn-lg">

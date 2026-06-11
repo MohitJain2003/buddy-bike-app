@@ -83,26 +83,23 @@ const AdminDashboard = () => {
           </div>
 
           {/* Stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--space-4)', marginBottom: 'var(--space-8)' }}>
+          <div className="admin-stats-grid">
             {statItems.map((stat, i) => (
-              <div key={i} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-lg)', padding: 'var(--space-5)', textAlign: 'center' }}>
+              <div key={i} className="card" style={{ padding: 'var(--space-5)', textAlign: 'center' }}>
                 <div style={{ color: stat.color, display: 'flex', justifyContent: 'center', marginBottom: 'var(--space-2)' }}>{stat.icon}</div>
                 <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-xl)', fontWeight: 800, color: stat.color }}>{stat.value}</div>
                 <div style={{ fontSize: 'var(--text-xs)', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{stat.label}</div>
               </div>
             ))}
           </div>
-
+ 
           {/* Action Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-5)' }}>
+          <div className="admin-action-grid">
             {cards.map((card, i) => (
               <Link key={i} to={card.to} style={{ textDecoration: 'none' }}>
                 <div
+                  className="card admin-form-card"
                   style={{
-                    background: 'var(--bg-card)',
-                    border: '1px solid var(--border-subtle)',
-                    borderRadius: 'var(--radius-xl)',
-                    padding: 'var(--space-8)',
                     color: 'var(--text-primary)',
                     transition: 'all var(--transition-base)',
                     cursor: 'pointer',

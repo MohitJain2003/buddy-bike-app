@@ -37,7 +37,7 @@ const BikeCard = ({ bike }) => {
           </div>
 
           <Link to={`/bikes/${bike.id}`} style={{ width: '100%', marginTop: 'auto' }}>
-            <button className="neon-btn" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+            <button className="btn btn-outline" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
               View Details <ArrowRight size={14} />
             </button>
           </Link>

@@ -1,5 +1,6 @@
 import ThreeBg from '../components/ThreeBg';
 import { Phone, Mail, MapPin, Clock, MessageCircle, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Contact = () => {
   const contactItems = [
@@ -47,8 +48,8 @@ const Contact = () => {
       <ThreeBg />
       <section className="contact-section">
         <div style={{ marginBottom: 'var(--space-8)', textAlign: 'center' }}>
-          <span className="section-label">📞 Get in Touch</span>
-          <h1 className="glow" style={{ fontSize: 'var(--text-4xl)', marginBottom: 'var(--space-3)' }}>Contact Us</h1>
+          <span className="section-label"><span className="section-icon"><Phone size={16} /></span> Get in Touch</span>
+          <h1 style={{ fontSize: 'var(--text-4xl)', marginBottom: 'var(--space-3)' }}>Contact Us</h1>
           <p style={{ color: 'var(--text-muted)', maxWidth: '500px', margin: '0 auto' }}>Visit our showroom or reach out directly. We're here to help you find your perfect ride.</p>
         </div>
 

@@ -37,14 +37,9 @@ const AdminLogin = () => {
     <>
       <ThreeBg />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: 'var(--space-6)' }}>
-        <div style={{
-          background: 'var(--bg-card)',
-          border: '1px solid var(--border-subtle)',
-          borderRadius: 'var(--radius-xl)',
-          padding: 'var(--space-10)',
+        <div className="card admin-form-card" style={{
           width: '100%',
           maxWidth: '420px',
-          boxShadow: 'var(--shadow-xl)',
           textAlign: 'center',
         }}>
           {/* Header */}

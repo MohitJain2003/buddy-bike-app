@@ -47,7 +47,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <div className="nav-links desktop-nav">
           {navItems.map(item => (
             <Link
               key={item.to}
@@ -60,10 +60,7 @@ const Navbar = () => {
               </span>
             </Link>
           ))}
-          <Link to="/admin" className="nav-link nav-link-cta" style={{ marginLeft: '8px' }}>
-            <LayoutDashboard size={14} />
-            Admin
-          </Link>
+
         </div>
 
         {/* Mobile Toggle */}
@@ -85,7 +82,7 @@ const Navbar = () => {
       />
 
       {/* Mobile Menu */}
-      <div className={`nav-links ${mobileOpen ? 'open' : ''}`} style={{ display: mobileOpen ? 'flex' : undefined }}>
+      <div className={`nav-links mobile-nav ${mobileOpen ? 'open' : ''}`}>
         {navItems.map(item => (
           <Link
             key={item.to}
@@ -98,10 +95,7 @@ const Navbar = () => {
             </span>
           </Link>
         ))}
-        <Link to="/admin" className="nav-link nav-link-cta" style={{ marginTop: '8px' }}>
-          <LayoutDashboard size={16} />
-          Admin Panel
-        </Link>
+
       </div>
     </>
   );

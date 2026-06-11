@@ -212,10 +212,10 @@ const EditBike = () => {
         </div>
 
         {/* Form */}
-        <div className="card" style={{ padding: 'var(--space-8)' }}>
+        <div className="card admin-form-card">
           <form onSubmit={handleSubmit}>
             {/* Name & Vehicle No */}
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--space-4)' }}>
+            <div className="form-grid-2" style={{ marginTop: 0 }}>
               <div className="input-group">
                 <label style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 'var(--space-2)', display: 'block' }}>Bike Name *</label>
                 <input type="text" name="name" className="custom-input" placeholder="e.g. Royal Enfield Classic 350" required value={formData.name} onChange={handleChange} />
@@ -227,7 +227,7 @@ const EditBike = () => {
             </div>
 
             {/* Brand & Model */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-4)', marginTop: 'var(--space-4)' }}>
+            <div className="form-grid-2">
               <div className="input-group">
                 <label style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 'var(--space-2)', display: 'block' }}>Brand *</label>
                 <input type="text" name="brand" className="custom-input" placeholder="e.g. Royal Enfield" required value={formData.brand} onChange={handleChange} />
@@ -239,7 +239,7 @@ const EditBike = () => {
             </div>
 
             {/* Year, Price, KM */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--space-4)', marginTop: 'var(--space-4)' }}>
+            <div className="form-grid-3">
               <div className="input-group">
                 <label style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 'var(--space-2)', display: 'block' }}>Year *</label>
                 <input type="number" name="year" className="custom-input" placeholder="2024" required value={formData.year} onChange={handleChange} />

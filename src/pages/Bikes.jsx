@@ -90,7 +90,7 @@ const Bikes = () => {
     <section className="bikes-page">
       {/* Page Header */}
       <div style={{ marginBottom: 'var(--space-8)' }}>
-        <h1 className="glow page-title" style={{ fontSize: 'var(--text-4xl)', marginBottom: 'var(--space-2)' }}>Explore Bikes</h1>
+        <h1 className="page-title" style={{ fontSize: 'var(--text-4xl)', marginBottom: 'var(--space-2)' }}>Explore Bikes</h1>
         <p style={{ color: 'var(--text-muted)', textAlign: 'center' }}>Find your perfect ride from our curated collection</p>
       </div>
 

@@ -112,31 +112,33 @@ const ManageBikes = () => {
               ) : (
                 bikes.map(b => (
                   <tr key={b.id}>
-                    <td>
+                    <td data-label="Bike Name">
                       <div style={{ fontWeight: 600, fontSize: 'var(--text-sm)' }}>{b.name}</div>
                       {b.vehicleNumber && (
                         <div style={{ fontSize: 'var(--text-xs)', color: 'var(--text-muted)', fontFamily: 'monospace', marginTop: '2px' }}>{b.vehicleNumber}</div>
                       )}
                     </td>
-                    <td style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)' }}>{b.brand || '-'}</td>
-                    <td style={{ fontWeight: 700, fontSize: 'var(--text-sm)', color: 'var(--primary)' }}>
+                    <td data-label="Brand" style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)' }}>{b.brand || '-'}</td>
+                    <td data-label="Price" style={{ fontWeight: 700, fontSize: 'var(--text-sm)', color: 'var(--primary)' }}>
                       ₹ {!isNaN(b.price) ? Number(b.price).toLocaleString('en-IN') : b.price}
                     </td>
-                    <td>
+                    <td data-label="Status">
                       <span className={`status-badge ${b.status === 'Sold' ? 'status-sold' : 'status-available'}`}>
                         {b.status || 'Available'}
                       </span>
                     </td>
-                    <td>
-                      <Link to={`/admin/edit-bike/${b.id}`} className="action-btn edit-btn">
-                        <Pencil size={14} /> Edit
-                      </Link>
-                      <button
-                        onClick={() => handleDelete(b.id)}
-                        className="action-btn delete-btn"
-                      >
-                        <Trash2 size={14} /> Delete
-                      </button>
+                    <td data-label="Actions">
+                      <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-start' }}>
+                        <Link to={`/admin/edit-bike/${b.id}`} className="action-btn edit-btn">
+                          <Pencil size={14} /> Edit
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(b.id)}
+                          className="action-btn delete-btn"
+                        >
+                          <Trash2 size={14} /> Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

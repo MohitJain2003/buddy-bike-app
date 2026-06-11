@@ -91,8 +91,8 @@ const EmiCalculator = () => {
       <ThreeBg />
       <section className="calculator-section">
         <div style={{ marginBottom: 'var(--space-8)' }}>
-          <span className="section-label">💰 Finance</span>
-          <h1 className="glow" style={{ fontSize: 'var(--text-4xl)', marginBottom: 'var(--space-3)' }}>EMI Calculator</h1>
+          <span className="section-label"><span className="section-icon"><IndianRupee size={16} /></span> Finance</span>
+          <h1 style={{ fontSize: 'var(--text-4xl)', marginBottom: 'var(--space-3)' }}>EMI Calculator</h1>
           <p style={{ color: 'var(--text-muted)', maxWidth: '500px', margin: '0 auto' }}>Plan your premium ride with ease. Calculate your monthly EMI in seconds.</p>
         </div>
 
