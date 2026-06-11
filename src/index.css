@@ -322,6 +322,7 @@ a {
   border: none;
   cursor: pointer;
   z-index: 101;
+  color: var(--primary);
 }
 
 .nav-toggle span {
