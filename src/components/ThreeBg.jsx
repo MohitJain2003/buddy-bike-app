@@ -86,9 +86,16 @@ const ThreeBg = () => {
       mouseY = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
     };
 
+    let lastWidth = window.innerWidth;
     const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      const newWidth = window.innerWidth;
+      // Only resize if the width changed (e.g. orientation change or desktop resize)
+      // to prevent mobile address bar scrolls from clearing/flickering the canvas
+      if (newWidth !== lastWidth) {
+        width = canvas.width = newWidth;
+        height = canvas.height = window.innerHeight;
+        lastWidth = newWidth;
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
