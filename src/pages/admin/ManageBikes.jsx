@@ -10,16 +10,8 @@ const ManageBikes = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAuthAndLoad = async () => {
-      const { data: { session } } = await supabaseClient.auth.getSession();
-      if (!session) {
-        navigate('/admin');
-        return;
-      }
-      fetchBikes();
-    };
-    checkAuthAndLoad();
-  }, [navigate]);
+    fetchBikes();
+  }, []);
 
   const fetchBikes = async () => {
     setLoading(true);

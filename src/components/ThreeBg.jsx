@@ -14,6 +14,8 @@ const ThreeBg = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
+    const getTheme = () => document.documentElement.getAttribute('data-theme') || 'dark';
+
     // Particle class representing a point in 3D space
     class Particle {
       constructor() {
@@ -30,39 +32,42 @@ const ThreeBg = () => {
         this.vy = (Math.random() - 0.5) * 0.15;
         this.vz = -(Math.random() * 0.5 + 0.25); // move towards camera
         this.radius = Math.random() * 1.2 + 0.4;
-        this.color = Math.random() > 0.85 
-          ? 'rgba(220, 38, 38, 0.5)' // primary accent red
-          : 'rgba(255, 255, 255, 0.3)'; // white
+        this.isAccent = Math.random() > 0.85;
       }
 
       update(mouseX, mouseY) {
-        // Move particle
         this.x += this.vx - mouseX * 0.15;
         this.y += this.vy - mouseY * 0.15;
         this.z += this.vz;
 
-        // If particle moves past screen, reset it
         if (this.z <= 0) {
           this.reset();
         }
       }
 
-      draw(projX, projY) {
-        // 3D projection
+      draw(projX, projY, isDark) {
         const fov = 300;
         const scale = fov / (fov + this.z);
         const x2d = this.x * scale + projX;
         const y2d = this.y * scale + projY;
         const r2d = this.radius * scale * 5;
 
-        // Fade in as they enter screen, fade out when very close
         let alpha = 1.0;
         if (this.z > 800) alpha = (1000 - this.z) / 200;
         if (this.z < 200) alpha = this.z / 200;
 
+        let color;
+        if (this.isAccent) {
+          color = `rgba(220, 38, 38, ${alpha * 0.5})`;
+        } else {
+          color = isDark
+            ? `rgba(255, 255, 255, ${alpha * 0.3})`
+            : `rgba(0, 0, 0, ${alpha * 0.12})`;
+        }
+
         ctx.beginPath();
         ctx.arc(x2d, y2d, r2d, 0, Math.PI * 2);
-        ctx.fillStyle = this.color.replace(/[\d.]+\)$/, `${alpha * 0.55})`);
+        ctx.fillStyle = color;
         ctx.fill();
       }
     }
@@ -88,7 +93,6 @@ const ThreeBg = () => {
     window.addEventListener('resize', handleResize);
 
     const render = () => {
-      // Smooth mouse interpolation
       targetX += (mouseX - targetX) * 0.05;
       targetY += (mouseY - targetY) * 0.05;
 
@@ -96,11 +100,11 @@ const ThreeBg = () => {
 
       const projX = width / 2;
       const projY = height / 2;
+      const isDark = getTheme() !== 'light';
 
-      // Draw and update particles
       particles.forEach((p) => {
         p.update(targetX, targetY);
-        p.draw(projX, projY);
+        p.draw(projX, projY, isDark);
       });
 
       animationFrameId = requestAnimationFrame(render);
@@ -124,8 +128,9 @@ const ThreeBg = () => {
       height: '100vh',
       zIndex: -2,
       pointerEvents: 'none',
-      background: '#09090b',
-      overflow: 'hidden'
+      background: 'var(--bg-primary)',
+      overflow: 'hidden',
+      transition: 'background 0.3s ease',
     }}>
       {/* Floating Ambient Glow 1 (Red) */}
       <div style={{
@@ -140,7 +145,7 @@ const ThreeBg = () => {
         pointerEvents: 'none',
       }} />
 
-      {/* Floating Ambient Glow 2 (Zinc/Muted Gray) */}
+      {/* Floating Ambient Glow 2 */}
       <div style={{
         position: 'absolute',
         bottom: '10%',

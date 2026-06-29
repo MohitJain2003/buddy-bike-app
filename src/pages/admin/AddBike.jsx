@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { supabaseClient } from '../../utils/supabaseClient';
 import { Link, useNavigate } from 'react-router-dom';
 import ThreeBg from '../../components/ThreeBg';
@@ -18,16 +18,6 @@ const AddBike = () => {
   const [files, setFiles] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabaseClient.auth.getSession();
-      if (!session) {
-        navigate('/admin');
-      }
-    };
-    checkAuth();
-  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

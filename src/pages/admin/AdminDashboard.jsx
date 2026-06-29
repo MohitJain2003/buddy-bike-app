@@ -9,16 +9,6 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState({ total: 0, available: 0, sold: 0, revenue: 0 });
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data } = await supabaseClient.auth.getSession();
-      if (!data.session) {
-        navigate('/admin');
-      }
-    };
-    checkAuth();
-  }, [navigate]);
-
-  useEffect(() => {
     const fetchStats = async () => {
       const { data } = await supabaseClient.from('bikes').select('*');
       if (data) {

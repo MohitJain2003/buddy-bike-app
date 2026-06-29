@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Pages
 import Home from './pages/Home';
@@ -31,10 +32,10 @@ function App() {
 
             {/* Admin Routes */}
             <Route path="/admin" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/manage-bikes" element={<ManageBikes />} />
-            <Route path="/admin/add-bike" element={<AddBike />} />
-            <Route path="/admin/edit-bike/:id" element={<EditBike />} />
+            <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/manage-bikes" element={<ProtectedRoute><ManageBikes /></ProtectedRoute>} />
+            <Route path="/admin/add-bike" element={<ProtectedRoute><AddBike /></ProtectedRoute>} />
+            <Route path="/admin/edit-bike/:id" element={<ProtectedRoute><EditBike /></ProtectedRoute>} />
           </Routes>
         </main>
         <Footer />

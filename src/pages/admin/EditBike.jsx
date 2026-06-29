@@ -23,13 +23,7 @@ const EditBike = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAuthAndLoad = async () => {
-      const { data: { session } } = await supabaseClient.auth.getSession();
-      if (!session) {
-        navigate('/admin');
-        return;
-      }
-
+    const loadBike = async () => {
       const { data, error } = await supabaseClient
         .from('bikes')
         .select('*')
@@ -56,7 +50,7 @@ const EditBike = () => {
       setLoading(false);
     };
 
-    checkAuthAndLoad();
+    loadBike();
   }, [id, navigate]);
 
   const handleChange = (e) => {
