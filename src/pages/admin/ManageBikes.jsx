@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabaseClient } from '../../utils/supabaseClient';
 import { Link, useNavigate } from 'react-router-dom';
-import ThreeBg from '../../components/ThreeBg';
 import { PlusCircle, Pencil, Trash2, LayoutDashboard, Bike } from 'lucide-react';
 
 const ManageBikes = () => {
@@ -51,7 +50,6 @@ const ManageBikes = () => {
 
   return (
     <>
-      <ThreeBg />
       <section className="admin-section">
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-6)', flexWrap: 'wrap', gap: 'var(--space-4)' }}>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabaseClient } from '../../utils/supabaseClient';
-import ThreeBg from '../../components/ThreeBg';
 import { LayoutDashboard, PlusCircle, List, LogOut, Bike, TrendingUp, DollarSign } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -53,7 +52,6 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <ThreeBg />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: 'var(--space-6)' }}>
         <div style={{ width: '100%', maxWidth: '800px' }}>
           {/* Header */}

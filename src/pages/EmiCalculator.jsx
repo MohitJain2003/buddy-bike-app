@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import ThreeBg from '../components/ThreeBg';
 import { Calculator, IndianRupee, TrendingUp, Clock, ArrowRight, Info } from 'lucide-react';
 
 const EmiCalculator = () => {
@@ -88,7 +87,6 @@ const EmiCalculator = () => {
 
   return (
     <>
-      <ThreeBg />
       <section className="calculator-section">
         <div style={{ marginBottom: 'var(--space-8)' }}>
           <span className="section-label"><span className="section-icon"><IndianRupee size={16} /></span> Finance</span>

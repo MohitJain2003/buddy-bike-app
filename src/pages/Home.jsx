@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabaseClient } from '../utils/supabaseClient';
 import { Link } from 'react-router-dom';
-import ThreeBg from '../components/ThreeBg';
 import { ChevronLeft, ChevronRight, ArrowRight, Shield, Award, Clock, TrendingUp, Phone, Bike, Trophy, Flag } from 'lucide-react';
 
 const Home = () => {
@@ -37,7 +36,6 @@ const Home = () => {
     <>
       {/* Hero Section */}
       <section className="hero">
-        <ThreeBg />
         <div className="hero-content">
           <div className="hero-badge">
             <Bike size={16} /> Premium Used Bikes Marketplace

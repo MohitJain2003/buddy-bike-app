@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { supabaseClient } from '../../utils/supabaseClient';
 import { useNavigate } from 'react-router-dom';
-import ThreeBg from '../../components/ThreeBg';
 import { Lock, Mail, Eye, EyeOff, ArrowRight, Shield } from 'lucide-react';
 
 const AdminLogin = () => {
@@ -35,7 +34,6 @@ const AdminLogin = () => {
 
   return (
     <>
-      <ThreeBg />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: 'var(--space-6)' }}>
         <div className="card admin-form-card" style={{
           width: '100%',

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
+import ThreeBg from './components/ThreeBg';
 
 // Pages
 import Home from './pages/Home';
@@ -21,6 +22,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <ThreeBg />
         <Navbar />
         <main style={{ minHeight: 'calc(100vh - var(--navbar-height))' }}>
           <Routes>

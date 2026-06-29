@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabaseClient } from '../../utils/supabaseClient';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import ThreeBg from '../../components/ThreeBg';
 import { Pencil, ArrowLeft, Save, Image, Upload, X, Trash2 } from 'lucide-react';
 
 const EditBike = () => {
@@ -187,7 +186,6 @@ const EditBike = () => {
 
   return (
     <>
-      <ThreeBg />
       <section className="admin-section" style={{ maxWidth: '720px' }}>
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-6)', flexWrap: 'wrap', gap: 'var(--space-4)' }}>

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabaseClient } from '../utils/supabaseClient';
-import ThreeBg from '../components/ThreeBg';
 import { ChevronLeft, ChevronRight, ArrowLeft, Phone, Tag, Calendar, Gauge, Fuel, Share2, Heart } from 'lucide-react';
 
 const BikeDetails = () => {
@@ -109,7 +108,6 @@ const BikeDetails = () => {
 
   return (
     <>
-      <ThreeBg />
       <section className="details-section">
         {/* Breadcrumb */}
         <div className="breadcrumb">
