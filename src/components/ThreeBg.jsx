@@ -50,7 +50,7 @@ const ThreeBg = () => {
         const scale = fov / (fov + this.z);
         const x2d = this.x * scale + projX;
         const y2d = this.y * scale + projY;
-        const r2d = this.radius * scale * 5;
+        const r2d = this.radius * scale * (isDark ? 5 : 6);
 
         let alpha = 1.0;
         if (this.z > 800) alpha = (1000 - this.z) / 200;
@@ -58,11 +58,13 @@ const ThreeBg = () => {
 
         let color;
         if (this.isAccent) {
-          color = `rgba(220, 38, 38, ${alpha * 0.5})`;
+          color = isDark
+            ? `rgba(220, 38, 38, ${alpha * 0.5})`
+            : `rgba(220, 38, 38, ${alpha * 0.65})`;
         } else {
           color = isDark
             ? `rgba(255, 255, 255, ${alpha * 0.3})`
-            : `rgba(0, 0, 0, ${alpha * 0.12})`;
+            : `rgba(220, 38, 38, ${alpha * 0.35})`;
         }
 
         ctx.beginPath();
