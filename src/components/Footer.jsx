@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Bike, Phone, Mail, MapPin } from 'lucide-react';
+import { Motorbike, Phone, Mail, MapPin } from 'lucide-react';
 
 const Footer = () => {
   const location = useLocation();
@@ -13,7 +13,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-brand">
           <h3>
-            <Bike size={22} color="var(--primary)" />
+            <Motorbike size={22} color="var(--primary)" />
             Buddy's Bike
           </h3>
           <p>Your trusted destination for premium used bikes. Quality rides, transparent deals, and a community of passionate riders.</p>

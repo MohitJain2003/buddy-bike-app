@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabaseClient } from '../../utils/supabaseClient';
-import { LayoutDashboard, PlusCircle, List, LogOut, Bike, TrendingUp, DollarSign } from 'lucide-react';
+import { LayoutDashboard, PlusCircle, List, LogOut, Motorbike, TrendingUp, DollarSign } from 'lucide-react';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const AdminDashboard = () => {
   ];
 
   const statItems = [
-    { icon: <Bike size={20} />, label: 'Total Bikes', value: stats.total, color: 'var(--text-primary)' },
+    { icon: <Motorbike size={20} />, label: 'Total Bikes', value: stats.total, color: 'var(--text-primary)' },
     { icon: <TrendingUp size={20} />, label: 'Available', value: stats.available, color: 'var(--success)' },
     { icon: <DollarSign size={20} />, label: 'Sold', value: stats.sold, color: 'var(--warning)' },
     { icon: <DollarSign size={20} />, label: 'Revenue', value: `₹ ${stats.revenue.toLocaleString('en-IN')}`, color: 'var(--primary)' },

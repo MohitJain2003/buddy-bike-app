@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabaseClient } from '../../utils/supabaseClient';
 import { Link, useNavigate } from 'react-router-dom';
-import { PlusCircle, Pencil, Trash2, LayoutDashboard, Bike } from 'lucide-react';
+import { PlusCircle, Pencil, Trash2, LayoutDashboard, Motorbike } from 'lucide-react';
 
 const ManageBikes = () => {
   const [bikes, setBikes] = useState([]);
@@ -55,7 +55,7 @@ const ManageBikes = () => {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-6)', flexWrap: 'wrap', gap: 'var(--space-4)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
             <div style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--primary-subtle)', border: '1px solid var(--primary-border)', borderRadius: 'var(--radius-lg)', color: 'var(--primary)' }}>
-              <Bike size={22} />
+              <Motorbike size={22} />
             </div>
             <div>
               <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-2xl)', fontWeight: 800, color: 'var(--text-primary)' }}>Manage Bikes</h2>
@@ -95,7 +95,7 @@ const ManageBikes = () => {
               ) : bikes.length === 0 ? (
                 <tr>
                   <td colSpan="5" style={{ textAlign: 'center', padding: 'var(--space-10)' }}>
-                    <Bike size={32} style={{ color: 'var(--text-muted)', opacity: 0.4, margin: '0 auto var(--space-3)', display: 'block' }} />
+                    <Motorbike size={32} style={{ color: 'var(--text-muted)', opacity: 0.4, margin: '0 auto var(--space-3)', display: 'block' }} />
                     <p style={{ color: 'var(--text-muted)' }}>No bikes found. <Link to="/admin/add-bike" style={{ color: 'var(--primary)' }}>Add your first bike</Link></p>
                   </td>
                 </tr>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Bike, Search, Phone, Calculator, Home, Sun, Moon } from 'lucide-react';
+import { Menu, X, Motorbike, Search, Phone, Calculator, Home, Sun, Moon } from 'lucide-react';
 
 const getInitialTheme = () => {
   const saved = localStorage.getItem('theme');
@@ -58,7 +58,7 @@ const Navbar = () => {
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} role="navigation" aria-label="Main navigation">
         <Link to="/" className="nav-logo">
           <div className="nav-logo-icon">
-            <Bike size={20} />
+            <Motorbike size={20} />
           </div>
           Buddy's Bike
         </Link>

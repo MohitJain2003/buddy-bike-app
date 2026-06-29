@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabaseClient } from '../utils/supabaseClient';
 import { useLocation } from 'react-router-dom';
 import BikeCard from '../components/BikeCard';
-import { Search, SlidersHorizontal, ChevronLeft, ChevronRight, X, Bike } from 'lucide-react';
+import { Search, SlidersHorizontal, ChevronLeft, ChevronRight, X, Motorbike } from 'lucide-react';
 
 const Bikes = () => {
   const [bikesData, setBikesData] = useState([]);
@@ -195,7 +195,7 @@ const Bikes = () => {
         ) : paginatedBikes.length === 0 ? (
           <div className="empty-state">
             <div className="empty-state-icon">
-              <Bike size={48} />
+              <Motorbike size={48} />
             </div>
             <h4>No bikes found</h4>
             <p>Try adjusting your filters or search terms</p>

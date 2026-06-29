@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabaseClient } from '../utils/supabaseClient';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, ArrowRight, Shield, Award, Clock, TrendingUp, Phone, Bike, Trophy, Flag } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, Shield, Award, Clock, TrendingUp, Phone, Motorbike, Trophy, Flag } from 'lucide-react';
 
 const Home = () => {
   const [bikes, setBikes] = useState([]);
@@ -38,7 +38,7 @@ const Home = () => {
       <section className="hero">
         <div className="hero-content">
           <div className="hero-badge">
-            <Bike size={16} /> Premium Used Bikes Marketplace
+            <Motorbike size={16} /> Premium Used Bikes Marketplace
           </div>
           <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 800, marginBottom: 'var(--space-4)', letterSpacing: '-0.03em', lineHeight: 1.05 }}>Ride The Future</h1>
           <p>Discover curated, quality-verified pre-owned bikes at unbeatable prices. Your next ride starts here.</p>
