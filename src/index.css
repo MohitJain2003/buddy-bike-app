@@ -98,10 +98,6 @@
   --navbar-height: 72px;
   --container-max: 1280px;
   --container-wide: 1440px;
-
-  /* Ambient background glows */
-  --ambient-glow-1: radial-gradient(circle, rgba(220, 38, 38, 0.07) 0%, rgba(220, 38, 38, 0) 70%);
-  --ambient-glow-2: radial-gradient(circle, rgba(240, 240, 245, 0.015) 0%, rgba(240, 240, 245, 0) 70%);
 }
 
 /* ===== LIGHT MODE THEME ===== */
@@ -155,10 +151,6 @@
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.12);
   --shadow-glow: none;
   --shadow-glow-cyan: none;
-
-  /* Ambient background glows for light mode */
-  --ambient-glow-1: radial-gradient(circle, rgba(220, 38, 38, 0.14) 0%, rgba(220, 38, 38, 0) 70%);
-  --ambient-glow-2: radial-gradient(circle, rgba(220, 38, 38, 0.04) 0%, rgba(220, 38, 38, 0) 70%);
 }
 
 /* ===== GLOBAL RESET & BASE ===== */

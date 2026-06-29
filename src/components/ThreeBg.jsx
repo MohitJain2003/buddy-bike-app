@@ -50,9 +50,7 @@ const ThreeBg = () => {
         const scale = fov / (fov + this.z);
         const x2d = this.x * scale + projX;
         const y2d = this.y * scale + projY;
-        
-        // Increase particle size slightly in light mode for better contrast
-        const r2d = this.radius * scale * (isDark ? 5 : 7);
+        const r2d = this.radius * scale * 5;
 
         let alpha = 1.0;
         if (this.z > 800) alpha = (1000 - this.z) / 200;
@@ -60,15 +58,11 @@ const ThreeBg = () => {
 
         let color;
         if (this.isAccent) {
-          // Sleek primary red with higher opacity in light mode to pop
-          color = isDark 
-            ? `rgba(220, 38, 38, ${alpha * 0.55})` 
-            : `rgba(220, 38, 38, ${alpha * 0.75})`;
+          color = `rgba(220, 38, 38, ${alpha * 0.5})`;
         } else {
-          // White dust in dark mode, dark grey dust in light mode
           color = isDark
-            ? `rgba(255, 255, 255, ${alpha * 0.35})`
-            : `rgba(30, 30, 45, ${alpha * 0.35})`;
+            ? `rgba(255, 255, 255, ${alpha * 0.3})`
+            : `rgba(0, 0, 0, ${alpha * 0.12})`;
         }
 
         ctx.beginPath();
@@ -145,11 +139,10 @@ const ThreeBg = () => {
         left: '20%',
         width: '50vw',
         height: '50vw',
-        background: 'var(--ambient-glow-1)',
+        background: 'radial-gradient(circle, rgba(220, 38, 38, 0.07) 0%, rgba(220, 38, 38, 0) 70%)',
         borderRadius: '50%',
         filter: 'blur(80px)',
         pointerEvents: 'none',
-        transition: 'background 0.3s ease',
       }} />
 
       {/* Floating Ambient Glow 2 */}
@@ -159,11 +152,10 @@ const ThreeBg = () => {
         right: '15%',
         width: '60vw',
         height: '60vw',
-        background: 'var(--ambient-glow-2)',
+        background: 'radial-gradient(circle, rgba(240, 240, 245, 0.015) 0%, rgba(240, 240, 245, 0) 70%)',
         borderRadius: '50%',
         filter: 'blur(100px)',
         pointerEvents: 'none',
-        transition: 'background 0.3s ease',
       }} />
 
       <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%' }} />
