@@ -9,6 +9,22 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      window.addEventListener('error', function(event) {
+        const root = document.getElementById('root');
+        if (root) {
+          root.innerHTML = `
+            <div style="padding: 20px; color: #ff3333; background: #1a0000; border: 1px solid #ff0000; margin: 20px; font-family: monospace; border-radius: 8px; z-index: 99999; position: relative;">
+              <h3>🚨 Application Runtime Error</h3>
+              <p><strong>Message:</strong> ${event.message}</p>
+              <p><strong>Filename:</strong> ${event.filename}</p>
+              <p><strong>Line:</strong> ${event.lineno}:${event.colno}</p>
+              <pre style="margin-top: 10px; padding: 10px; background: #000; color: #aaa; overflow-x: auto;">${event.error ? event.error.stack : 'No stack trace available'}</pre>
+            </div>
+          `;
+        }
+      });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
