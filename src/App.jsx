@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import ThreeBg from './components/ThreeBg';
+import ScrollToTop from './components/ScrollToTop';
 
 // Pages
 import Home from './pages/Home';
@@ -21,6 +22,7 @@ import EditBike from './pages/admin/EditBike';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="App">
         <ThreeBg />
         <Navbar />

@@ -6,6 +6,10 @@ const Footer = () => {
   const isAdmin = location.pathname.startsWith('/admin');
   const currentYear = new Date().getFullYear();
 
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   if (isAdmin) return null;
 
   return (
@@ -22,10 +26,10 @@ const Footer = () => {
         <div className="footer-column">
           <h4>Quick Links</h4>
           <ul className="footer-links">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/bikes">Explore Bikes</Link></li>
-            <li><Link to="/emi-calculator">EMI Calculator</Link></li>
-            <li><Link to="/contact">Contact Us</Link></li>
+            <li><Link to="/" onClick={handleScrollToTop}>Home</Link></li>
+            <li><Link to="/bikes" onClick={handleScrollToTop}>Explore Bikes</Link></li>
+            <li><Link to="/emi-calculator" onClick={handleScrollToTop}>EMI Calculator</Link></li>
+            <li><Link to="/contact" onClick={handleScrollToTop}>Contact Us</Link></li>
           </ul>
         </div>
 
