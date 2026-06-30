@@ -11,6 +11,15 @@
     <div id="root"></div>
     <script>
       window.addEventListener('error', function(event) {
+        // Ignore cross-origin script errors or browser extension/in-app tracker errors
+        if (
+          event.message === 'Script error.' ||
+          !event.filename ||
+          (event.filename.indexOf('http') === 0 && event.filename.indexOf(window.location.host) === -1)
+        ) {
+          return; // Allow the app to keep running
+        }
+
         const root = document.getElementById('root');
         if (root) {
           root.innerHTML = `
