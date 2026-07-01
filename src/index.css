@@ -2092,3 +2092,48 @@ select.custom-input {
     padding: var(--space-5);
   }
 }
+
+/* ===== SCROLL REVEAL ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Animation direction presets */
+.reveal.reveal-slide-up {
+  transform: translateY(40px);
+}
+
+.reveal.reveal-slide-left {
+  transform: translateX(40px);
+}
+
+.reveal.reveal-slide-right {
+  transform: translateX(-40px);
+}
+
+.reveal.reveal-scale {
+  transform: scale(0.94);
+}
+
+.reveal.reveal-fade {
+  transform: none;
+}
+
+/* Active Visible State */
+.reveal.visible {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* Honor accessibility settings */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

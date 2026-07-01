@@ -3,6 +3,7 @@ import { supabaseClient } from '../utils/supabaseClient';
 import { useLocation } from 'react-router-dom';
 import BikeCard from '../components/BikeCard';
 import { Search, SlidersHorizontal, ChevronLeft, ChevronRight, X, Motorbike } from 'lucide-react';
+import ScrollReveal from '../components/ScrollReveal';
 
 const Bikes = () => {
   const [bikesData, setBikesData] = useState([]);
@@ -206,7 +207,11 @@ const Bikes = () => {
             )}
           </div>
         ) : (
-          paginatedBikes.map(bike => <BikeCard key={bike.id} bike={bike} />)
+          paginatedBikes.map((bike, index) => (
+            <ScrollReveal key={bike.id} animation="scale" delay={(index % 4) * 60}>
+              <BikeCard bike={bike} />
+            </ScrollReveal>
+          ))
         )}
       </div>
 

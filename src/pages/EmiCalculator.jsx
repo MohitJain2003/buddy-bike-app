@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Calculator, IndianRupee, TrendingUp, Clock, ArrowRight, Info } from 'lucide-react';
+import ScrollReveal from '../components/ScrollReveal';
 
 const EmiCalculator = () => {
   const [price, setPrice] = useState(100000);
@@ -88,13 +89,16 @@ const EmiCalculator = () => {
   return (
     <>
       <section className="calculator-section">
-        <div style={{ marginBottom: 'var(--space-8)' }}>
-          <span className="section-label"><span className="section-icon"><IndianRupee size={16} /></span> Finance</span>
-          <h1 style={{ fontSize: 'var(--text-4xl)', marginBottom: 'var(--space-3)' }}>EMI Calculator</h1>
-          <p style={{ color: 'var(--text-muted)', maxWidth: '500px', margin: '0 auto' }}>Plan your premium ride with ease. Calculate your monthly EMI in seconds.</p>
-        </div>
+        <ScrollReveal animation="fade">
+          <div style={{ marginBottom: 'var(--space-8)' }}>
+            <span className="section-label"><span className="section-icon"><IndianRupee size={16} /></span> Finance</span>
+            <h1 style={{ fontSize: 'var(--text-4xl)', marginBottom: 'var(--space-3)' }}>EMI Calculator</h1>
+            <p style={{ color: 'var(--text-muted)', maxWidth: '500px', margin: '0 auto' }}>Plan your premium ride with ease. Calculate your monthly EMI in seconds.</p>
+          </div>
+        </ScrollReveal>
 
-        <div className="calc-container">
+        <ScrollReveal animation="scale" delay={100}>
+          <div className="calc-container">
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-6)' }}>
             <div style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--primary-subtle)', borderRadius: 'var(--radius-md)', color: 'var(--primary)' }}>
               <Calculator size={20} />
@@ -185,6 +189,7 @@ const EmiCalculator = () => {
             </div>
           )}
         </div>
+        </ScrollReveal>
       </section>
     </>
   );
