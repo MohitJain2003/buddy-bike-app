@@ -60,11 +60,23 @@ const Home = () => {
       <section style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
         <div className="container home-stats-grid">
           {stats.map((stat, i) => (
-            <ScrollReveal key={i} animation="slide-up" delay={i * 100}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', justifyContent: 'center' }}>
-                <div style={{ color: 'var(--primary)', display: 'flex' }}>{stat.icon}</div>
+            <ScrollReveal key={i} animation="slide-up" delay={i * 150} threshold={0.15}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', width: 'fit-content', margin: '0 auto' }}>
+                <div style={{ 
+                  color: 'var(--primary)', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  width: '48px', 
+                  height: '48px', 
+                  background: 'var(--primary-subtle)', 
+                  borderRadius: '50%',
+                  flexShrink: 0
+                }}>
+                  {stat.icon}
+                </div>
                 <div>
-                  <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-xl)', fontWeight: 800, color: 'var(--text-primary)' }}>{stat.value}</div>
+                  <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-xl)', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.2 }}>{stat.value}</div>
                   <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-muted)' }}>{stat.label}</div>
                 </div>
               </div>
