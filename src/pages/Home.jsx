@@ -164,14 +164,14 @@ const Home = () => {
             { name: 'KTM', slug: 'ktm' },
             { name: 'Jawa', slug: 'jawa' },
           ].map((brand, idx) => (
-            <ScrollReveal key={brand.name} animation="scale" delay={(idx % 3) * 80}>
-              <Link to={`/bikes?brand=${brand.name}`}>
+            <Link to={`/bikes?brand=${brand.name}`} key={brand.name}>
+              <ScrollReveal animation="scale" delay={(idx % 3) * 80}>
                 <div className="brand-card">
                   <img src={`/assets/${brand.slug}.png`} alt={brand.name} loading="lazy" />
                   <span>{brand.name}</span>
                 </div>
-              </Link>
-            </ScrollReveal>
+              </ScrollReveal>
+            </Link>
           ))}
         </div>
       </section>
