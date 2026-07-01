@@ -9,6 +9,37 @@ const BikeDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLiked, setIsLiked] = useState(() => {
+    const saved = localStorage.getItem(`favorite_bike_${id}`);
+    return saved === 'true';
+  });
+
+  const handleLike = () => {
+    const nextLiked = !isLiked;
+    setIsLiked(nextLiked);
+    localStorage.setItem(`favorite_bike_${id}`, String(nextLiked));
+  };
+
+  const handleShare = async () => {
+    if (!bike) return;
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: bike.name,
+          text: `Check out this premium bike: ${bike.name} on Buddy's Bike!`,
+          url: window.location.href,
+        });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Link copied to clipboard! 📋");
+      }
+    } catch (err) {
+      // Ignore abort errors from standard user cancelling of native share dialog
+      if (err.name !== 'AbortError') {
+        console.error("Error sharing:", err);
+      }
+    }
+  };
 
   useEffect(() => {
     const fetchBikeDetails = async () => {
@@ -171,11 +202,16 @@ const BikeDetails = () => {
             </p>
           </div>
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-            <button className="btn btn-ghost btn-sm" aria-label="Share">
+            <button className="btn btn-ghost btn-sm" aria-label="Share" onClick={handleShare}>
               <Share2 size={16} />
             </button>
-            <button className="btn btn-ghost btn-sm" aria-label="Save to favorites">
-              <Heart size={16} />
+            <button 
+              className="btn btn-ghost btn-sm" 
+              aria-label="Save to favorites" 
+              onClick={handleLike}
+              style={{ color: isLiked ? 'var(--primary)' : 'inherit' }}
+            >
+              <Heart size={16} fill={isLiked ? 'var(--primary)' : 'none'} />
             </button>
           </div>
         </div>
