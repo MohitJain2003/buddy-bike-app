@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const ScrollReveal = ({ 
   children, 
@@ -14,7 +14,6 @@ const ScrollReveal = ({
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Once the element is visible, we can stop observing it
           if (containerRef.current) {
             observer.unobserve(containerRef.current);
           }
@@ -22,7 +21,7 @@ const ScrollReveal = ({
       },
       {
         threshold,
-        rootMargin: '0px 0px -20px 0px' // offset so it triggers slightly before entry
+        rootMargin: '0px 0px -20px 0px'
       }
     );
 
@@ -38,20 +37,25 @@ const ScrollReveal = ({
     };
   }, [threshold]);
 
-  const revealClass = `reveal reveal-${animation} ${isVisible ? 'visible' : ''}`;
+  const child = React.Children.only(children);
+  const revealClass = `reveal reveal-${animation} ${isVisible ? 'visible' : ''} ${child.props.className || ''}`.trim();
 
-  return (
-    <div 
-      ref={containerRef} 
-      className={revealClass}
-      style={{
-        transitionDelay: `${delay}ms`,
-        width: '100%',
-      }}
-    >
-      {children}
-    </div>
-  );
+  return React.cloneElement(child, {
+    ref: (node) => {
+      containerRef.current = node;
+      const { ref } = child;
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
+    },
+    className: revealClass,
+    style: {
+      ...child.props.style,
+      transitionDelay: `${delay}ms`,
+    }
+  });
 };
 
 export default ScrollReveal;

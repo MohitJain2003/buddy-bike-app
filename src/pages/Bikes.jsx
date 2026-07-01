@@ -208,9 +208,7 @@ const Bikes = () => {
           </div>
         ) : (
           paginatedBikes.map((bike, index) => (
-            <ScrollReveal key={bike.id} animation="scale" delay={(index % 4) * 60}>
-              <BikeCard bike={bike} />
-            </ScrollReveal>
+            <BikeCard key={bike.id} bike={bike} index={index} />
           ))
         )}
       </div>

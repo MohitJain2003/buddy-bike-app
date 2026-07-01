@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Tag, Calendar, Gauge } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
 
-const BikeCard = ({ bike }) => {
+const BikeCard = ({ bike, index = 0 }) => {
   const displayPrice = !isNaN(bike.price) ? Number(bike.price).toLocaleString('en-IN') : bike.price;
   const imageUrl = (bike.imageUrls && bike.imageUrls.length > 0) ? bike.imageUrls[0] : '/assets/placeholder.jpg';
   const km = bike.kmDriven ? `${Number(bike.kmDriven).toLocaleString('en-IN')} km` : '0 km';
@@ -9,8 +10,9 @@ const BikeCard = ({ bike }) => {
 
   return (
     <div className="gallery-card-wrapper">
-      <div className="gallery-card">
-        {isSold && <div className="sold-badge">SOLD</div>}
+      <ScrollReveal animation="scale" delay={(index % 4) * 60}>
+        <div className="gallery-card">
+          {isSold && <div className="sold-badge">SOLD</div>}
 
         <Link to={`/bikes/${bike.id}`}>
           <div className="gallery-img-container">
@@ -43,7 +45,8 @@ const BikeCard = ({ bike }) => {
           </Link>
         </div>
       </div>
-    </div>
+    </ScrollReveal>
+  </div>
   );
 };
 
