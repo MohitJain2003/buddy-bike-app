@@ -47,7 +47,6 @@ const ScrollReveal = ({
       style={{
         transitionDelay: `${delay}ms`,
         width: '100%',
-        display: 'contents' // maintains layout structure of children (e.g. grids, flex, block)
       }}
     >
       {children}
